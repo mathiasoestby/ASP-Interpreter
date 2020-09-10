@@ -16,40 +16,40 @@ for m in range(1,12+1): m_num[m_navn[m]] = m
 # Gitt et månedsnavn, finn månedens nummer.
 # Svar 0 om det ikke er et lovlig månedsnavn.
 def finn_maaned (m_id):
-  for m_ix in range(1,len(m_navn)):
-    if m_navn[m_ix] == m_id: return m_ix
-  return 0
+	for m_ix in range(1,len(m_navn)):
+		if m_navn[m_ix] == m_id: return m_ix
+	return 0
 
 # Les et månedsnavn; fortsett til lovlig navn.
 def les_maaned ():
-  while True:
-    m_id = input("Oppgi en måned: ")
-    if (finn_maaned(m_id)): return m_num[m_id]
-    print("Ulovlig måned!")
+	while True:
+		m_id = input("Oppgi en måned: ")
+		if (finn_maaned(m_id)): return m_num[m_id]
+		print("Ulovlig måned!")
 
 # Er angitte år et skuddår?
 def er_skuddaar (aa):
-  return aa%4==0 and aa%100 or aa%400==0
+	return aa%4==0 and aa%100 or aa%400==0
 
 # Beregn antall dager i en gitt måned i et gitt år.
 def finn_m_leng (m, aa):
-  if m==2 and er_skuddaar(aa): return 29
-  return m_leng[m]
+	if m==2 and er_skuddaar(aa): return 29
+	return m_leng[m]
 
 # Beregn antall dager fra 1. januar 1900 til angitt dato:
 def finn_dag_nr (aa, m, d):
-  d_nr = 0
+	d_nr = 0
 
   # Tell dagene i årene før angitte dato:
-  for aax in range(1900,aa):
-    d_nr = d_nr + 365;
-    if er_skuddaar(aax): d_nr = d_nr + 1
+	for aax in range(1900,aa):
+		d_nr = d_nr + 365;
+		if er_skuddaar(aax): d_nr = d_nr + 1
 
   # Tell dagene i månedene før:
-  for mx in range(1,m):
-    d_nr = d_nr + finn_m_leng(mx,aa)
+	for mx in range(1,m):
+		d_nr = d_nr + finn_m_leng(mx,aa)
 
-  return d_nr + d
+	return d_nr + d
 
 # Hovedprogrammet:
 aar = int(input("Oppgi et år: "))

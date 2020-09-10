@@ -55,7 +55,6 @@ public class Scanner {
 
   private void readNextLine() {
     curLineTokens.clear();
-
     // Read the next line:
     String line = null;
     try {
@@ -70,8 +69,135 @@ public class Scanner {
       sourceFile = null;
       scannerError("Unspecified I/O error!");
     }
+    //finner, teller indents
+    line = expandLeadingTabs(line);
+    int curindents = findIndent(line) / TABDIST;
+    System.out.format("Linje: %d, curindents: %d, stack: %d\n", curLineNum(), curindents, indents.peek());
+    if(curindents > indents.peek()){
+      for (int i = indents.peek(); i < curindents; i++) {
+        curLineTokens.add(new Token(TokenKind.indentToken));
+        indents.push(i+1);
+      }
+    } else if (curindents < indents.peek()) {
+      for (int i = indents.peek(); i > curindents; i--) {
+        curLineTokens.add(new Token(TokenKind.dedentToken));
+        indents.pop();
+      }
+    }
 
+    int pos = 0;
+    while(pos < line.length()) {
+      char character = line.charAt(pos);
+      if (Character.isWhitespace(character)) {
+        //siden vi alt har telt indents, ignore, do nothing
+      } else if (isDigit(character)) {
+
+      } else if (isLetterAZ(character)) {
+
+      } else {
+        switch (character){
+          case '+':
+						curLineTokens.add(new Token(TokenKind.plusToken));
+          break;
+
+          case '-':
+						curLineTokens.add(new Token(TokenKind.minusToken));
+          break;
+
+          case '/':
+						if (line.charAt(pos+1) == '/') {
+							curLineTokens.add(new Token(TokenKind.doubleSlashToken));
+						} else {
+							curLineTokens.add(new Token(TokenKind.slashToken));
+						}
+          break;
+
+          case '*':
+						curLineTokens.add(new Token(TokenKind.astToken));
+          break;
+
+          case '%':
+						curLineTokens.add(new Token(TokenKind.percentToken));
+          break;
+
+          case '=':
+            if (line.charAt(pos+1) == '=') {
+              curLineTokens.add(new Token(TokenKind.doubleEqualToken));
+              pos++;
+            } else {
+              curLineTokens.add(new Token(TokenKind.equalToken));
+            }
+          break;
+
+					case '>':
+						if (line.charAt(pos+1) == '=') {
+							curLineTokens.add(new Token(TokenKind.greaterEqualToken));
+							pos++;
+						} else {
+							curLineTokens.add(new Token(TokenKind.greaterToken));
+						}
+					break;
+
+					case '<':
+						if (line.charAt(pos+1) == '=') {
+							curLineTokens.add(new Token(TokenKind.lessEqualToken));
+							pos++;
+						} else {
+							curLineTokens.add(new Token(TokenKind.lessToken));
+						}
+					break;
+
+					case '!':
+						if (line.charAt(pos+1) == '=') {
+							curLineTokens.add(new Token(TokenKind.notEqualToken));
+						}
+					break;
+
+					case ':':
+						curLineTokens.add(new Token(TokenKind.colonToken));
+					break;
+
+					case ',':
+						curLineTokens.add(new Token(TokenKind.commaToken));
+					break;
+
+					case '{':
+						curLineTokens.add(new Token(TokenKind.leftBraceToken));
+					break;
+
+					case '[':
+						curLineTokens.add(new Token(TokenKind.leftBracketToken));
+					break;
+
+					case '(':
+						curLineTokens.add(new Token(TokenKind.leftParToken));
+					break;
+
+					case '}':
+						curLineTokens.add(new Token(TokenKind.rightBraceToken));
+					break;
+
+					case ']':
+						curLineTokens.add(new Token(TokenKind.rightBracketToken));
+					break;
+
+					case ')':
+						curLineTokens.add(new Token(TokenKind.rightParToken));
+					break;
+
+					case ';':
+						curLineTokens.add(new Token(TokenKind.semicolonToken));
+					break;
+
+        }
+      }
+
+    pos++;
+    }
     //-- Must be changed in part 1:
+
+
+
 
     // Terminate line:
     curLineTokens.add(new Token(newLineToken,curLineNum()));
