@@ -62,6 +62,8 @@ public class Scanner {
       if (line == null) {
         sourceFile.close();
         sourceFile = null;
+				curLineTokens.add(new Token(TokenKind.eofToken));
+				return;
       } else {
         Main.log.noteSourceLine(curLineNum(), line);
       }
@@ -94,6 +96,22 @@ public class Scanner {
 
       } else if (isLetterAZ(character)) {
 
+      } else if (character == '"') {
+				Token t = new Token(TokenKind.stringToken);
+				String s = "";
+				pos++;
+				character = line.charAt(pos);
+      	while (character != '"') {
+					//soker frem til vi finner avsluttende anforselstegn
+					pos++;
+					if (pos >= line.length()) {
+						scannerError("EOL while scanning string literal");
+					}
+					s += character;
+					character = line.charAt(pos);
+				}
+				t.stringLit = s;
+				curLineTokens.add(t);
       } else {
         switch (character){
           case '+':
