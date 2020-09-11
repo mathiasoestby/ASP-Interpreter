@@ -60,9 +60,15 @@ public class Scanner {
     try {
       line = sourceFile.readLine();
       if (line == null) {
+				//ikke mer igjen av fil, avslutt document
+				for (int value : indents) {
+					curLineTokens.add(new Token(TokenKind.dedentToken, curLineNum()));
+				}
         sourceFile.close();
         sourceFile = null;
-				curLineTokens.add(new Token(TokenKind.eofToken));
+        Token t = new Token(TokenKind.eofToken, curLineNum());
+				curLineTokens.add(t);
+        Main.log.noteToken(t);
 				return;
       } else {
         Main.log.noteSourceLine(curLineNum(), line);
@@ -74,137 +80,163 @@ public class Scanner {
     //finner, teller indents
     line = expandLeadingTabs(line);
     int curindents = findIndent(line) / TABDIST;
-    System.out.format("Linje: %d, curindents: %d, stack: %d\n", curLineNum(), curindents, indents.peek());
     if(curindents > indents.peek()){
       for (int i = indents.peek(); i < curindents; i++) {
-        curLineTokens.add(new Token(TokenKind.indentToken));
+        curLineTokens.add(new Token(TokenKind.indentToken, curLineNum()));
         indents.push(i+1);
       }
     } else if (curindents < indents.peek()) {
       for (int i = indents.peek(); i > curindents; i--) {
-        curLineTokens.add(new Token(TokenKind.dedentToken));
+        curLineTokens.add(new Token(TokenKind.dedentToken, curLineNum()));
         indents.pop();
       }
     }
-
+		//Lager tokens for forskjellige karakterer
     int pos = 0;
     while(pos < line.length()) {
       char character = line.charAt(pos);
       if (Character.isWhitespace(character)) {
         //siden vi alt har telt indents, ignore, do nothing
+      } else if (character == '#') {
+				//for kommentarlinjer, stopper vi å lese fra tegnet
+				return ;
       } else if (isDigit(character)) {
 
       } else if (isLetterAZ(character)) {
+				Token t = new Token(TokenKind.nameToken, curLineNum());
+				String n = "";
+				n += character;
+				while(pos+1<line.length()){
+          if (!isLetterAZ(line.charAt(pos+1))) {
+            break;
+          }
+          pos++;
+          character = line.charAt(pos);
+          n += character;
+        }
+
+				t.name = n;
+				curLineTokens.add(t);
 
       } else if (character == '"') {
-				Token t = new Token(TokenKind.stringToken);
+				//legger karakterer inn i string frem til den finner anførselstegn
+				//denne må testes! usikker på om catcher alle feil
+				Token t = new Token(TokenKind.stringToken, curLineNum());
 				String s = "";
-				pos++;
-				character = line.charAt(pos);
-      	while (character != '"') {
-					//soker frem til vi finner avsluttende anforselstegn
-					pos++;
-					if (pos >= line.length()) {
-						scannerError("EOL while scanning string literal");
-					}
-					s += character;
-					character = line.charAt(pos);
-				}
+        if (pos+1 >= line.length()) {
+          //fanger feil ved anfoorselstegn rett foor EOL
+          scannerError("EOL while scanning string literal");
+        }
+        boolean closed = false;
+				while(pos+1<line.length()){
+          if (line.charAt(pos+1) == '"') {
+            closed = true;
+            pos++;
+            break;
+          }
+          pos++;
+          character = line.charAt(pos);
+          s += character;
+        }
+        if (!closed) {
+          //om vi møtte slutten på line uten å ha funnet siste anfoorselstegn
+          scannerError("EOL while scanning string literal");
+        }
 				t.stringLit = s;
 				curLineTokens.add(t);
       } else {
         switch (character){
           case '+':
-						curLineTokens.add(new Token(TokenKind.plusToken));
+						curLineTokens.add(new Token(TokenKind.plusToken, curLineNum()));
           break;
 
           case '-':
-						curLineTokens.add(new Token(TokenKind.minusToken));
+						curLineTokens.add(new Token(TokenKind.minusToken, curLineNum()));
           break;
 
           case '/':
 						if (line.charAt(pos+1) == '/') {
-							curLineTokens.add(new Token(TokenKind.doubleSlashToken));
+							curLineTokens.add(new Token(TokenKind.doubleSlashToken, curLineNum()));
 						} else {
-							curLineTokens.add(new Token(TokenKind.slashToken));
+							curLineTokens.add(new Token(TokenKind.slashToken, curLineNum()));
 						}
           break;
 
           case '*':
-						curLineTokens.add(new Token(TokenKind.astToken));
+						curLineTokens.add(new Token(TokenKind.astToken, curLineNum()));
           break;
 
           case '%':
-						curLineTokens.add(new Token(TokenKind.percentToken));
+						curLineTokens.add(new Token(TokenKind.percentToken, curLineNum()));
           break;
 
           case '=':
             if (line.charAt(pos+1) == '=') {
-              curLineTokens.add(new Token(TokenKind.doubleEqualToken));
+              curLineTokens.add(new Token(TokenKind.doubleEqualToken, curLineNum()));
               pos++;
             } else {
-              curLineTokens.add(new Token(TokenKind.equalToken));
+              curLineTokens.add(new Token(TokenKind.equalToken, curLineNum()));
             }
           break;
 
 					case '>':
 						if (line.charAt(pos+1) == '=') {
-							curLineTokens.add(new Token(TokenKind.greaterEqualToken));
+							curLineTokens.add(new Token(TokenKind.greaterEqualToken, curLineNum()));
 							pos++;
 						} else {
-							curLineTokens.add(new Token(TokenKind.greaterToken));
+							curLineTokens.add(new Token(TokenKind.greaterToken, curLineNum()));
 						}
 					break;
 
 					case '<':
 						if (line.charAt(pos+1) == '=') {
-							curLineTokens.add(new Token(TokenKind.lessEqualToken));
+							curLineTokens.add(new Token(TokenKind.lessEqualToken, curLineNum()));
 							pos++;
 						} else {
-							curLineTokens.add(new Token(TokenKind.lessToken));
+							curLineTokens.add(new Token(TokenKind.lessToken, curLineNum()));
 						}
 					break;
 
 					case '!':
 						if (line.charAt(pos+1) == '=') {
-							curLineTokens.add(new Token(TokenKind.notEqualToken));
+							curLineTokens.add(new Token(TokenKind.notEqualToken, curLineNum()));
 						}
 					break;
 
 					case ':':
-						curLineTokens.add(new Token(TokenKind.colonToken));
+						curLineTokens.add(new Token(TokenKind.colonToken, curLineNum()));
 					break;
 
 					case ',':
-						curLineTokens.add(new Token(TokenKind.commaToken));
+						curLineTokens.add(new Token(TokenKind.commaToken, curLineNum()));
 					break;
 
 					case '{':
-						curLineTokens.add(new Token(TokenKind.leftBraceToken));
+						curLineTokens.add(new Token(TokenKind.leftBraceToken, curLineNum()));
 					break;
 
 					case '[':
-						curLineTokens.add(new Token(TokenKind.leftBracketToken));
+						curLineTokens.add(new Token(TokenKind.leftBracketToken, curLineNum()));
 					break;
 
 					case '(':
-						curLineTokens.add(new Token(TokenKind.leftParToken));
+						curLineTokens.add(new Token(TokenKind.leftParToken, curLineNum()));
 					break;
 
 					case '}':
-						curLineTokens.add(new Token(TokenKind.rightBraceToken));
+						curLineTokens.add(new Token(TokenKind.rightBraceToken, curLineNum()));
 					break;
 
 					case ']':
-						curLineTokens.add(new Token(TokenKind.rightBracketToken));
+						curLineTokens.add(new Token(TokenKind.rightBracketToken, curLineNum()));
 					break;
 
 					case ')':
-						curLineTokens.add(new Token(TokenKind.rightParToken));
+						curLineTokens.add(new Token(TokenKind.rightParToken, curLineNum()));
 					break;
 
 					case ';':
-						curLineTokens.add(new Token(TokenKind.semicolonToken));
+						curLineTokens.add(new Token(TokenKind.semicolonToken, curLineNum()));
 					break;
 
         }
