@@ -53,6 +53,11 @@ public class Scanner {
   }
 
 
+  private Boolean digitOrPoint(char c){//lager metode som brukes i if-testen som lager integer- og floatTokens
+    return (isDigit(c) || c == '.');
+  }
+
+
   private void readNextLine() {
     curLineTokens.clear();
     // Read the next line:
@@ -94,69 +99,55 @@ public class Scanner {
 		//Lager tokens for forskjellige karakterer
     int pos = 0;
     while(pos < line.length()) {
+
       char character = line.charAt(pos);
+
       if (Character.isWhitespace(character)) {
         //siden vi alt har telt indents, ignore, do nothing
       } else if (character == '#') {
-				//for kommentarlinjer, stopper vi å lese fra tegnet
-				return ;
+				//for kommentarlinjer, stopper vi å lese linja fra tegnet. Vi kan ikke bruke for å stoppe lesingen av linja, siden da vil ikke readNextLine rekke å logge mulige tokens
+				pos = line.length()-1;
+
       } else if (isDigit(character)) {
 
-        int numberOfPoints = 0;
-        Boolean isFloat = false;
-        String buildNumber = "";
+        int numberOfPoints = 0; //bruker de tre variablene for å holde oversikt over hvor mange eventuelle punktum det er for å lage floatToken
+        Boolean isFloat = false; //sjekker om det skal være float
+        String buildNumber = ""; //skal bli til int eller float literal
 
-        while (isDigit(character) && pos < line.length()) {
-          if (character == '0'){
+        while (digitOrPoint(character) && pos < line.length()){ //går gjennom tegnene i linja
+          if ((character == '0') && (buildNumber == "")){ //lager sjekk som stopper løkka hvis første tegn er en 0
             buildNumber += character;
+            pos++;
             break;
           }
-          buildNumber += character;
+
+          buildNumber += character; //hvis ikke, legg til tegn og oppdater pos
           pos++;
-          if (pos < line.length()){
+
+          if (character == '.'){ //hvis jeg finner et punktum skal vi lage en float
+            numberOfPoints++;
+            isFloat = true;
+          }
+
+          if (pos < line.length()){ //for å unngå indexOutOfBoundserror må jeg sjekke om det er flere karakterer på linja før jeg setter character til å være lik den neste karakteren.
             character = line.charAt(pos);
-            if (character == '.') {
-              buildNumber += character;
-              pos++;
-              numberOfPoints ++;
-              isFloat = true;
-              if (pos < line.length()){
-                character = line.charAt(pos);
-              }
-            }
           }
         }
 
-        Token t;
+        Token t; //Token-objektet vi skal lage
 
-        if (isFloat){
-          if (numberOfPoints > 1){
-            scannerError("float literal contains more than one point");
+        if (isFloat){ //Hvis float, lag floatToken
+          if (numberOfPoints > 1){ //kaster en scannerError hvis det er for mange floating points i tallet
+            scannerError("float literal contains more than one floating point");
           }
-          t = new Token(TokenKind.floatToken);
+          t = new Token(TokenKind.floatToken, curLineNum());
           t.floatLit = Double.valueOf(buildNumber);
-        } else {
-          t = new Token(TokenKind.integerToken);
+        } else { //ellers blir token-objektet en int
+          t = new Token(TokenKind.integerToken, curLineNum());
           t.integerLit = Long.valueOf(buildNumber);
         }
-        curLineTokens.add(t);
-        buildNumber = "";
-
-      } else if (isLetterAZ(character)) {
-				Token t = new Token(TokenKind.nameToken, curLineNum());
-				String n = "";
-				n += character;
-				while(pos+1<line.length()){
-          if (!isLetterAZ(line.charAt(pos+1))) {
-            break;
-          }
-          pos++;
-          character = line.charAt(pos);
-          n += character;
-        }
-
-				t.name = n;
-				curLineTokens.add(t);
+        curLineTokens.add(t); //legger til tokenet
+        pos--; //pos er allerede oppdatert til å være lik den neste verdien som skal leses, men slutten av hovedwhile-løkken har en pos++ allerede, så jeg må dekrementere pos før if(isDigit(character)) er ferdig.
 
       } else if (character == '"') {
 				//legger karakterer inn i string frem til den finner anførselstegn
