@@ -102,6 +102,46 @@ public class Scanner {
 				return ;
       } else if (isDigit(character)) {
 
+        int numberOfPoints = 0;
+        Boolean isFloat = false;
+        String buildNumber = "";
+
+        while (isDigit(character) && pos < line.length()) {
+          if (character == '0'){
+            buildNumber += character;
+            break;
+          }
+          buildNumber += character;
+          pos++;
+          if (pos < line.length()){
+            character = line.charAt(pos);
+            if (character == '.') {
+              buildNumber += character;
+              pos++;
+              numberOfPoints ++;
+              isFloat = true;
+              if (pos < line.length()){
+                character = line.charAt(pos);
+              }
+            }
+          }
+        }
+
+        Token t;
+
+        if (isFloat){
+          if (numberOfPoints > 1){
+            scannerError("float literal contains more than one point");
+          }
+          t = new Token(TokenKind.floatToken);
+          t.floatLit = Double.valueOf(buildNumber);
+        } else {
+          t = new Token(TokenKind.integerToken);
+          t.integerLit = Long.valueOf(buildNumber);
+        }
+        curLineTokens.add(t);
+        buildNumber = "";
+
       } else if (isLetterAZ(character)) {
 				Token t = new Token(TokenKind.nameToken, curLineNum());
 				String n = "";
