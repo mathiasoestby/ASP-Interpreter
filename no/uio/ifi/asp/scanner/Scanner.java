@@ -150,7 +150,6 @@ public class Scanner {
         pos--; //pos er allerede oppdatert til å være lik den neste verdien som skal leses, men slutten av hovedwhile-løkken har en pos++ allerede, så jeg må dekrementere pos før if(isDigit(character)) er ferdig.
 
       } else if (isLetterAZ(character)) {
-        Token t = new Token(TokenKind.nameToken, curLineNum());
         String n = "";
         n += character;
         while(pos+1<line.length()){
@@ -161,9 +160,74 @@ public class Scanner {
           character = line.charAt(pos);
           n += character;
         }
+        Token t;
+        switch (n) {
+          case "and":
+          t = new Token(TokenKind.andToken,curLineNum());
+          break;
 
-        t.name = n;
+          case "def":
+          t = new Token(TokenKind.defToken,curLineNum());
+          break;
+
+          case "elif":
+          t = new Token(TokenKind.elifToken,curLineNum());
+          break;
+
+          case "else":
+          t = new Token(TokenKind.elseToken,curLineNum());
+          break;
+
+          case "False":
+          t = new Token(TokenKind.falseToken,curLineNum());
+          break;
+
+          case "for":
+          t = new Token(TokenKind.forToken,curLineNum());
+          break;
+
+          case "if":
+          t = new Token(TokenKind.ifToken,curLineNum());
+          break;
+
+          case "in":
+          t = new Token(TokenKind.inToken,curLineNum());
+          break;
+
+          case "None":
+          t = new Token(TokenKind.noneToken,curLineNum());
+          break;
+
+          case "not":
+          t = new Token(TokenKind.notToken,curLineNum());
+          break;
+
+          case "or":
+          t = new Token(TokenKind.orToken,curLineNum());
+          break;
+
+          case "pass":
+          t = new Token(TokenKind.passToken,curLineNum());
+          break;
+
+          case "return":
+          t = new Token(TokenKind.returnToken,curLineNum());
+          break;
+
+          case "True":
+          t = new Token(TokenKind.trueToken,curLineNum());
+          break;
+
+          case "while":
+          t = new Token(TokenKind.whileToken,curLineNum());
+          break;
+
+          default:
+          t = new Token(TokenKind.nameToken, curLineNum());
+          t.name = n;
+        }
         curLineTokens.add(t);
+
       } else if (character == '"') {
 				//legger karakterer inn i string frem til den finner anførselstegn
 				//denne må testes! usikker på om catcher alle feil
