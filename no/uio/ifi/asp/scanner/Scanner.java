@@ -150,10 +150,11 @@ public class Scanner {
         pos--; //pos er allerede oppdatert til å være lik den neste verdien som skal leses, men slutten av hovedwhile-løkken har en pos++ allerede, så jeg må dekrementere pos før if(isDigit(character)) er ferdig.
 
       } else if (isLetterAZ(character)) {
+        //et name kan ikke starte med et tall, men kan inneholde det etter en letterAZ
         String n = "";
         n += character;
         while(pos+1<line.length()){
-          if (!isLetterAZ(line.charAt(pos+1))) {
+          if (!(isLetterAZ(line.charAt(pos+1)) || isDigit(line.charAt(pos+1)))) {
             break;
           }
           pos++;
@@ -228,7 +229,7 @@ public class Scanner {
         }
         curLineTokens.add(t);
 
-      } else if (character == '"') {
+      } else if (character == '"' || character == '\'') {
 				//legger karakterer inn i string frem til den finner anførselstegn
 				//denne må testes! usikker på om catcher alle feil
 				String s = "";
@@ -238,7 +239,7 @@ public class Scanner {
         }
         boolean closed = false;
 				while(pos+1<line.length()){
-          if (line.charAt(pos+1) == '"') {
+          if (line.charAt(pos+1) == '"' || line.charAt(pos+1) == '\'') {
             closed = true;
             pos++;
             break;
@@ -265,8 +266,10 @@ public class Scanner {
           break;
 
           case '/':
-						if (line.charAt(pos+1) == '/') {
+
+						if (pos+1 < line.length() && line.charAt(pos+1) == '/') {
 							curLineTokens.add(new Token(TokenKind.doubleSlashToken, curLineNum()));
+              pos++;
 						} else {
 							curLineTokens.add(new Token(TokenKind.slashToken, curLineNum()));
 						}
@@ -281,7 +284,7 @@ public class Scanner {
           break;
 
           case '=':
-            if (line.charAt(pos+1) == '=') {
+            if (pos+1 < line.length() && line.charAt(pos+1) == '=') {
               curLineTokens.add(new Token(TokenKind.doubleEqualToken, curLineNum()));
               pos++;
             } else {
@@ -290,7 +293,7 @@ public class Scanner {
           break;
 
 					case '>':
-						if (line.charAt(pos+1) == '=') {
+						if (pos+1 < line.length() && line.charAt(pos+1) == '=') {
 							curLineTokens.add(new Token(TokenKind.greaterEqualToken, curLineNum()));
 							pos++;
 						} else {
@@ -299,7 +302,7 @@ public class Scanner {
 					break;
 
 					case '<':
-						if (line.charAt(pos+1) == '=') {
+						if (pos+1 < line.length() && line.charAt(pos+1) == '=') {
 							curLineTokens.add(new Token(TokenKind.lessEqualToken, curLineNum()));
 							pos++;
 						} else {
@@ -308,8 +311,9 @@ public class Scanner {
 					break;
 
 					case '!':
-						if (line.charAt(pos+1) == '=') {
+						if (pos+1 < line.length() && line.charAt(pos+1) == '=') {
 							curLineTokens.add(new Token(TokenKind.notEqualToken, curLineNum()));
+              pos++;
 						}
 					break;
 
