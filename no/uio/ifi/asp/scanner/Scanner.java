@@ -65,7 +65,7 @@ public class Scanner {
     try {
       line = sourceFile.readLine();
       if (line == null) {
-				//ikke mer igjen av fil, avslutt document
+				//ikke mer igjen av fil, avslutt document ved dedent og EOF
 				for (int value : indents) {
 					curLineTokens.add(new Token(TokenKind.dedentToken, curLineNum()));
 				}
@@ -82,7 +82,7 @@ public class Scanner {
       sourceFile = null;
       scannerError("Unspecified I/O error!");
     }
-    //finner, teller indents
+    //finner og teller indents
     line = expandLeadingTabs(line);
     int curindents = findIndent(line) / TABDIST;
     if(curindents > indents.peek()){
@@ -105,7 +105,7 @@ public class Scanner {
       if (Character.isWhitespace(character)) {
         //siden vi alt har telt indents, ignore, do nothing
       } else if (character == '#') {
-				//for kommentarlinjer, stopper vi å lese linja fra tegnet. Vi kan ikke bruke for å stoppe lesingen av linja, siden da vil ikke readNextLine rekke å logge mulige tokens
+				//for kommentarlinjer, stopper vi å lese linja fra #-tegnet. Vi kan ikke bruke return for å stoppe lesingen av linja, siden da vil ikke readNextLine rekke å logge mulige tokens
 				pos = line.length()-1;
 
       } else if (isDigit(character)) {
@@ -149,10 +149,24 @@ public class Scanner {
         curLineTokens.add(t); //legger til tokenet
         pos--; //pos er allerede oppdatert til å være lik den neste verdien som skal leses, men slutten av hovedwhile-løkken har en pos++ allerede, så jeg må dekrementere pos før if(isDigit(character)) er ferdig.
 
+      } else if (isLetterAZ(character)) {
+        Token t = new Token(TokenKind.nameToken, curLineNum());
+        String n = "";
+        n += character;
+        while(pos+1<line.length()){
+          if (!isLetterAZ(line.charAt(pos+1))) {
+            break;
+          }
+          pos++;
+          character = line.charAt(pos);
+          n += character;
+        }
+
+        t.name = n;
+        curLineTokens.add(t);
       } else if (character == '"') {
 				//legger karakterer inn i string frem til den finner anførselstegn
 				//denne må testes! usikker på om catcher alle feil
-				Token t = new Token(TokenKind.stringToken, curLineNum());
 				String s = "";
         if (pos+1 >= line.length()) {
           //fanger feil ved anfoorselstegn rett foor EOL
@@ -173,7 +187,8 @@ public class Scanner {
           //om vi møtte slutten på line uten å ha funnet siste anfoorselstegn
           scannerError("EOL while scanning string literal");
         }
-				t.stringLit = s;
+        Token t = new Token(TokenKind.stringToken, curLineNum());
+        t.stringLit = s;
 				curLineTokens.add(t);
       } else {
         switch (character){
