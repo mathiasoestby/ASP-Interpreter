@@ -67,7 +67,12 @@ public class Scanner {
       if (line == null) {
 				//ikke mer igjen av fil, avslutt document ved dedent og EOF
 				for (int value : indents) {
-					curLineTokens.add(new Token(TokenKind.dedentToken, curLineNum()));
+          //dedenter før EOF
+          if (value > 0) {
+            Token dedent = new Token(TokenKind.dedentToken, curLineNum());
+            curLineTokens.add(dedent);
+            Main.log.noteToken(dedent);
+          }
 				}
         sourceFile.close();
         sourceFile = null;
