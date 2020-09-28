@@ -82,18 +82,25 @@ public class Scanner {
       sourceFile = null;
       scannerError("Unspecified I/O error!");
     }
+
+    if (line.trim().isEmpty() || line.trim().startsWith("#")) {
+      //skal ikke lages noe for tomme linjer eller kommentarlinjer
+      return;
+    }
+
     //finner og teller indents
     line = expandLeadingTabs(line);
-    int curindents = findIndent(line) / TABDIST;
+    int curindents = findIndent(line);
     if(curindents > indents.peek()){
-      for (int i = indents.peek(); i < curindents; i++) {
-        curLineTokens.add(new Token(TokenKind.indentToken, curLineNum()));
-        indents.push(i+1);
-      }
+      curLineTokens.add(new Token(TokenKind.indentToken, curLineNum()));
+      indents.push(curindents);
     } else if (curindents < indents.peek()) {
-      for (int i = indents.peek(); i > curindents; i--) {
+      while (curindents != indents.peek()) {
         curLineTokens.add(new Token(TokenKind.dedentToken, curLineNum()));
         indents.pop();
+        if (indents.size() == 0) {
+          scannerError("Indentation error!");
+        }
       }
     }
 		//Lager tokens for forskjellige karakterer
@@ -105,6 +112,7 @@ public class Scanner {
       if (Character.isWhitespace(character)) {
         //siden vi alt har telt indents, ignore, do nothing
       } else if (character == '#') {
+
 				//for kommentarlinjer, stopper vi å lese linja fra #-tegnet. Vi kan ikke bruke return for å stoppe lesingen av linja, siden da vil ikke readNextLine rekke å logge mulige tokens
 				pos = line.length()-1;
 
@@ -364,9 +372,9 @@ public class Scanner {
 
 
     // Terminate line:
-    if (curLineTokens.size() > 0) {
-      curLineTokens.add(new Token(newLineToken,curLineNum()));
-    } //! noe her må gjøres med indent- og dedenttokens om linja ikke har innhold
+
+    curLineTokens.add(new Token(newLineToken,curLineNum()));
+
 
 
     for (Token t: curLineTokens)
