@@ -231,7 +231,7 @@ public class Scanner {
 
       } else if (character == '"' || character == '\'') {
 				//legger karakterer inn i string frem til den finner anførselstegn
-				//denne må testes! usikker på om catcher alle feil
+        char sign = line.charAt(pos);
 				String s = "";
         if (pos+1 >= line.length()) {
           //fanger feil ved anfoorselstegn rett foor EOL
@@ -239,7 +239,7 @@ public class Scanner {
         }
         boolean closed = false;
 				while(pos+1<line.length()){
-          if (line.charAt(pos+1) == '"' || line.charAt(pos+1) == '\'') {
+          if (line.charAt(pos+1) == sign) {
             closed = true;
             pos++;
             break;
@@ -366,7 +366,7 @@ public class Scanner {
     // Terminate line:
     if (curLineTokens.size() > 0) {
       curLineTokens.add(new Token(newLineToken,curLineNum()));
-    }
+    } //! noe her må gjøres med indent- og dedenttokens om linja ikke har innhold
 
 
     for (Token t: curLineTokens)
