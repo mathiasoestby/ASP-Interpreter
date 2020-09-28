@@ -364,7 +364,10 @@ public class Scanner {
 
 
     // Terminate line:
-    curLineTokens.add(new Token(newLineToken,curLineNum()));
+    if (curLineTokens.size() > 0) {
+      curLineTokens.add(new Token(newLineToken,curLineNum()));
+    }
+
 
     for (Token t: curLineTokens)
     Main.log.noteToken(t);
