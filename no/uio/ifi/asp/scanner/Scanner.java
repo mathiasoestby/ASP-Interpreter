@@ -112,7 +112,6 @@ public class Scanner {
       if (Character.isWhitespace(character)) {
         //siden vi alt har telt indents, ignore, do nothing
       } else if (character == '#') {
-
 				//for kommentarlinjer, stopper vi å lese linja fra #-tegnet. Vi kan ikke bruke return for å stoppe lesingen av linja, siden da vil ikke readNextLine rekke å logge mulige tokens
 				pos = line.length()-1;
 
@@ -361,21 +360,17 @@ public class Scanner {
 						curLineTokens.add(new Token(TokenKind.semicolonToken, curLineNum()));
 					break;
 
+          default:
+            scannerError("SyntaxError! Illegal character: \'" + character +"\'");
+
         }
       }
 
     pos++;
     }
-    //-- Must be changed in part 1:
-
-
-
 
     // Terminate line:
-
     curLineTokens.add(new Token(newLineToken,curLineNum()));
-
-
 
     for (Token t: curLineTokens)
     Main.log.noteToken(t);
