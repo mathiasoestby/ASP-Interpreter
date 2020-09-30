@@ -148,9 +148,13 @@ public class Scanner {
 
         Token t; //Token-objektet vi skal lage
 
+        if (buildNumber.charAt(buildNumber.length()-1) == '.'){ //kaster en scannerError hvis tallet avslutter med et floating point. 
+          scannerError("float literal '" + buildNumber + "' cannot end with a point");
+        }
+
         if (isFloat){ //Hvis float, lag floatToken
           if (numberOfPoints > 1){ //kaster en scannerError hvis det er for mange floating points i tallet
-            scannerError("float literal contains more than one floating point");
+            scannerError("float literal '" + buildNumber + "' contains more than one floating point");
           }
           t = new Token(TokenKind.floatToken, curLineNum());
           t.floatLit = Double.valueOf(buildNumber);
