@@ -13,7 +13,7 @@ public abstract class AspSyntax {
 
 
     abstract void prettyPrint();
-    abstract RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue;
+    // abstract RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue;
 
 
     static void parserError(String message, int lineNum) {
@@ -26,14 +26,14 @@ public abstract class AspSyntax {
 
     public static void test(Scanner s, TokenKind tk) {
 	if (s.curToken().kind != tk)
-	    parserError("Expected " + tk + " but found " + 
+	    parserError("Expected " + tk + " but found " +
 			s.curToken().kind + "!", s.curLineNum());
     }
 
 
     public static void test(Scanner s, TokenKind tk1, TokenKind tk2) {
 	if (s.curToken().kind!=tk1 && s.curToken().kind!=tk2)
-	    parserError("Expected " + tk1 + " or " + tk2 + " but found " + 
+	    parserError("Expected " + tk1 + " or " + tk2 + " but found " +
 			s.curToken().kind + "!", s.curLineNum());
     }
 

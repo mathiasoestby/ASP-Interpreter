@@ -148,7 +148,7 @@ public class Scanner {
 
         Token t; //Token-objektet vi skal lage
 
-        if (buildNumber.charAt(buildNumber.length()-1) == '.'){ //kaster en scannerError hvis tallet avslutter med et floating point. 
+        if (buildNumber.charAt(buildNumber.length()-1) == '.'){ //kaster en scannerError hvis tallet avslutter med et floating point.
           scannerError("float literal '" + buildNumber + "' cannot end with a point");
         }
 
