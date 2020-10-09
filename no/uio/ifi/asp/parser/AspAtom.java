@@ -13,7 +13,7 @@ abstract class AspAtom extends AspSyntax {
   static AspAtom parse(Scanner s){
     enterParser("atom");
 
-    AspAtom a;
+    AspAtom a = new AspName(s.curLineNum());
 
     if (s.curToken().kind == TokenKind.nameToken)
       a = AspName.parse(s);
@@ -30,7 +30,7 @@ abstract class AspAtom extends AspSyntax {
     else if (s.curToken().kind == TokenKind.leftBraceToken)
       a = AspDictDisplay.parse(s);
     else
-      a = AspStringLiteral.parse(s);
+      parserError("Expected value or expression, but found none", s.curLineNum());
 
     leaveParser("atom");
     return a;

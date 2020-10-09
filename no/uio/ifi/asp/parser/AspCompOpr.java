@@ -13,12 +13,22 @@ abstract class AspCompOpr extends AspSyntax {
   static AspCompOpr parse(Scanner s) {
     enterParser("comp opr");
 
-    AspCompOpr sco;
+    AspCompOpr sco = new AspLessOpr(s.curLineNum());
 
     if (s.curToken().kind == TokenKind.lessToken)
       sco = AspLessOpr.parse(s);
+    else if (s.curToken().kind == TokenKind.greaterToken)
+      sco = AspGreaterOpr.parse(s);
+    else if (s.curToken().kind == TokenKind.equalToken)
+      sco = AspEqualOpr.parse(s);
+    else if (s.curToken().kind == TokenKind.greaterEqualToken)
+      sco = AspGreaterEqualOpr.parse(s);
+    else if (s.curToken().kind == TokenKind.lessEqualToken)
+      sco = AspLessEqualOpr.parse(s);
+    else if (s.curToken().kind == TokenKind.notEqualToken)
+      sco = AspNotEqualOpr.parse(s);
     else
-      sco = AspLessOpr.parse(s);
+      parserError("Expected operator, but found none", s.curLineNum());
 
 
     leaveParser("comp opr");
