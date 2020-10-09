@@ -8,34 +8,41 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspExpr extends AspSyntax {
+  //-- Must be changed in part 2:
+  ArrayList<AspAndTest> andTests = new ArrayList<>();
+
+  AspExpr(int n) {
+    super(n);
+  }
+
+
+  public static AspExpr parse(Scanner s) {
+    enterParser("expr");
+
     //-- Must be changed in part 2:
-    // ArrayList<AspAndTest> andTests = new ArrayList<>();
+    AspExpr ae = AspExpr(s.curLineNum());
 
-    AspExpr(int n) {
-	super(n);
+    ae.andTests.add(AspAndTest.parse(s));
+
+    while (s.curToken().kind == TokenKind.orToken) {
+      skip(s, TokenKind.orToken());
+      ae.andTests.add(AspAndTest.parse(s));
     }
 
-
-    public static AspExpr parse(Scanner s) {
-	enterParser("expr");
-
-	//-- Must be changed in part 2:
-	AspExpr ae = null;
-
-	leaveParser("expr");
-	return ae;
-    }
+    leaveParser("expr");
+    return ae;
+  }
 
 
-    @Override
-    public void prettyPrint() {
-	//-- Must be changed in part 2:
-    }
+  @Override
+  public void prettyPrint() {
+    //-- Must be changed in part 2:
+  }
 
 
-    @Override
-    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-	//-- Must be changed in part 3:
-	return null;
-    }
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    //-- Must be changed in part 3:
+    return null;
+  }
 }
