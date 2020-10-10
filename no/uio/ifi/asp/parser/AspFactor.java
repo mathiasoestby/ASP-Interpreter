@@ -42,7 +42,7 @@ class AspFactor extends AspSyntax {
         break;
       }
     }
-    leaveParser("factor")
+    leaveParser("factor");
     return af;
   }
 
@@ -50,3 +50,4 @@ class AspFactor extends AspSyntax {
   public void prettyPrint() {
     //-- Must be changed in part 2:
   }
+}

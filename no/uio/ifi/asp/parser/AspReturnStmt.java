@@ -10,7 +10,7 @@ class AspReturnStmt extends AspSyntax {
     AspExpr expr;
     super(n);
   }
-  static parse(Scanner s){
+  static AspReturnStmt parse(Scanner s){
     enterParser("return stmt");
 
     skip(s, TokenKind.returnToken);

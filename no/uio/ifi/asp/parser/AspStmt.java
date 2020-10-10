@@ -9,7 +9,7 @@ abstract class AspStmt extends AspSyntax {
   AspStmt(int n){
     super(n);
   }
-  static parse(Scanner s){
+  static AspStmt parse(Scanner s){
     enterParser("stmt");
 
     AspStmt a;

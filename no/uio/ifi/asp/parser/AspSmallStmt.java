@@ -9,7 +9,7 @@ abstract class AspSmallStmt extends AspSyntax {
   AspSmallStmt(int n){
     super(n);
   }
-  static parse(Scanner s){
+  static AspSmallStmt parse(Scanner s){
     enterParser("small stmt");
 
     AspSmallStmt ss;

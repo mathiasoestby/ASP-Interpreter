@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
-import static no.uio.ifi.asp.scanner.TokenKind.*;
+
+
 
 class AspAndTest extends AspSyntax {
   ArrayList<AspNotTest> notTests = new ArrayList<>();
@@ -15,7 +16,7 @@ class AspAndTest extends AspSyntax {
   }
 
   static AspAndTest parse(Scanner s) {
-    enterParser("and test")
+    enterParser("and test");
 
     AspAndTest aat = new AspAndTest(s.curLineNum());
 
@@ -26,11 +27,7 @@ class AspAndTest extends AspSyntax {
       skip(s, andToken);
     }
 
-    leaveParser("and test")
+    leaveParser("and test");
     return aat;
   }
-
-  @Override
-  public void prettyPrint() {
-    //-- Must be changed in part 2:
-  }
+}

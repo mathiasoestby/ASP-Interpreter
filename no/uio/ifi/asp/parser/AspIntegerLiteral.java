@@ -9,8 +9,8 @@ class AspIntegerLiteral extends AspAtom {
   long tall;
   // int curLineNum;
 
-  AspIntegerLiteral(int curLineNum){
-    super(curLineNum);
+  AspIntegerLiteral(int n){
+    super(n);
   }
 
   static AspIntegerLiteral parse(Scanner s){

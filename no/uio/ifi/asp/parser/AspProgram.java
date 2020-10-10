@@ -24,7 +24,7 @@ public class AspProgram extends AspSyntax {
     while (s.curToken().kind != eofToken) {
       //-- Must be changed in part 2:
       // ap.stmts.add(AspStmt.parse(s));
-      AspStmt.parse(s)
+      AspStmt.parse(s);
 
       ap.atoms.add(AspAtom.parse(s));
 
@@ -44,6 +44,4 @@ public class AspProgram extends AspSyntax {
   //   @Override
   //   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
   // //-- Must be changed in part 4:
-  // return null;
-  //   }
 }

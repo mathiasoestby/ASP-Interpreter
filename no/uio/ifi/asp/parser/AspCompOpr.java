@@ -5,7 +5,9 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 
 
-abstract class AspCompOpr extends AspSyntax {
+class AspCompOpr extends AspSyntax {
+  TokenKind opr;
+
   AspCompOpr(int n){
     super(n);
   }
@@ -13,30 +15,37 @@ abstract class AspCompOpr extends AspSyntax {
   static AspCompOpr parse(Scanner s) {
     enterParser("comp opr");
 
-    AspCompOpr sco = new AspLessOpr(s.curLineNum());
+    AspCompOpr sco = new AspCompOpr(s.curLineNum());
 
-    if (s.curToken().kind == TokenKind.lessToken)
-      sco = AspLessOpr.parse(s);
-    else if (s.curToken().kind == TokenKind.greaterToken)
-      sco = AspGreaterOpr.parse(s);
-    else if (s.curToken().kind == TokenKind.equalToken)
-      sco = AspEqualOpr.parse(s);
-    else if (s.curToken().kind == TokenKind.greaterEqualToken)
-      sco = AspGreaterEqualOpr.parse(s);
-    else if (s.curToken().kind == TokenKind.lessEqualToken)
-      sco = AspLessEqualOpr.parse(s);
-    else if (s.curToken().kind == TokenKind.notEqualToken)
-      sco = AspNotEqualOpr.parse(s);
+    TokenKind t = s.curToken().kind;
+
+    if (t == TokenKind.lessToken || t == TokenKind.greaterToken || t == TokenKind.doubleEqualToken || t == TokenKind.greaterEqualToken || t == TokenKind.lessEqualToken || t == TokenKind.notEqualToken)
+      sco.opr = t;
     else
       parserError("Expected operator, but found none", s.curLineNum());
+
+    // if (s.curToken().kind == TokenKind.lessToken)
+    //   sco = AspLessOpr.parse(s);
+    // else if (s.curToken().kind == TokenKind.greaterToken)
+    //   sco = AspGreaterOpr.parse(s);
+    // else if (s.curToken().kind == TokenKind.doubleEqualToken)
+    //   sco = AspDoubleEqualOpr.parse(s);
+    // else if (s.curToken().kind == TokenKind.greaterEqualToken)
+    //   sco = AspGreaterEqualOpr.parse(s);
+    // else if (s.curToken().kind == TokenKind.lessEqualToken)
+    //   sco = AspLessEqualOpr.parse(s);
+    // else if (s.curToken().kind == TokenKind.notEqualToken)
+    //   sco = AspNotEqualOpr.parse(s);
+    // else
+    //   parserError("Expected operator, but found none", s.curLineNum());
 
 
     leaveParser("comp opr");
     return sco;
   }
 
-  // @Override
-  // public void prettyPrint(){
-  //   System.out.println(("hei"));
-  // }
+  @Override
+  public void prettyPrint(){
+    System.out.println(("hei"));
+  }
 }

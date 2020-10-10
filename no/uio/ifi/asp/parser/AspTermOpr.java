@@ -15,7 +15,7 @@ class AspTermOpr extends AspSyntax {
 
   static AspTermOpr parse(Scanner s) {
     AspTermOpr ato = AspTermOpr(s.curLineNum());
-    enterParser("term opr")
+    enterParser("term opr");
     switch (s.curToken().kind) {
       case TokenKind.plusToken:
         skip(s, TokenKind.plusToken);
@@ -30,7 +30,7 @@ class AspTermOpr extends AspSyntax {
         test(s, TokenKind.plusToken, TokenKind.minusToken);
     }
 
-    leaveParser("term opr")
+    leaveParser("term opr");
     return ato;
   }
 
@@ -38,3 +38,4 @@ class AspTermOpr extends AspSyntax {
   public void prettyPrint() {
     //-- Must be changed in part 2:
   }
+}
