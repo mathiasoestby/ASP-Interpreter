@@ -9,12 +9,12 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 class AspTermOpr extends AspSyntax {
   TokenKind kind;
-  AspTerm(int n) {
+  AspTermOpr(int n) {
     super(n);
   }
 
   static AspTermOpr parse(Scanner s) {
-    AspTermOpr ato = AspTerm(s.curLineNum());
+    AspTermOpr ato = AspTermOpr(s.curLineNum());
     enterParser("term opr")
     switch (s.curToken().kind) {
       case TokenKind.plusToken:
