@@ -21,10 +21,8 @@ class AspFactor extends AspSyntax {
     AspFactor af = AspFactor(s.curLineNum());
     enterParser("factor")
 
-    af.factor.add(AspFactor.parse(s));
-
     while(true){
-      if (s.curToken().kind == TokenKind.mulToken ||
+      if (s.curToken().kind == TokenKind.plusToken ||
           s.curToken().kind == TokenKind.minusToken)
       {
         af.fpref.add(AspFactorPrefix.parse(s));
@@ -32,7 +30,7 @@ class AspFactor extends AspSyntax {
         //kan hende dette blir feil,, NULLPOINTEREXCEPTION
         af.fpref.add(null);
       }
-      af.factor.add(AspFactorPrefix.parse(s));
+      af.prim.add(AspPrimary.parse(s));
       if (s.curToken().kind == TokenKind.astToken ||
           s.curToken().kind == TokenKind.slashToken ||
           s.curToken().kind == TokenKind.percentToken ||
