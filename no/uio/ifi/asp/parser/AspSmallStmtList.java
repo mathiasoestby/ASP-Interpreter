@@ -19,9 +19,16 @@ class AspSmallStmtList extends AspStmt {
 
     AspSmallStmtList ssl = new AspSmallStmtList(s.curLineNum());
 
-    while (s.curToken().kind != TokenKind.newLineToken) {
+    ssl.assList.add(AspSmallStmt.parse(s));
+
+    while (s.curToken().kind == TokenKind.semicolonToken) {
+      skip(s, TokenKind.semicolonToken);
+      if (s.curToken().kind == TokenKind.newLineToken) {
+        break;
+      }
       ssl.assList.add(AspSmallStmt.parse(s));
     }
+    skip(s, TokenKind.newLineToken);
 
     leaveParser("small stmt list");
     return ssl;

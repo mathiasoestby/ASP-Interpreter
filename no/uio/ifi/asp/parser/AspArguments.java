@@ -19,17 +19,18 @@ class AspArguments extends AspPrimarySuffix {
 
     AspArguments aa = new AspArguments(s.curLineNum());
     skip(s, TokenKind.leftParToken);
-    if (s.curToken().kind != TokenKind.rightParToken) {
 
-      while (s.curToken().kind != TokenKind.rightParToken) {
-        aa.exprList.add(AspExpr.parse(s));
-        if (s.curToken().kind != TokenKind.rightParToken){
-          skip(s, TokenKind.commaToken);
+    while(s.curToken().kind != TokenKind.rightParToken) {
+      aa.exprList.add(AspExpr.parse(s));
+
+      if (s.curToken().kind != TokenKind.rightParToken) {
+        skip(s, TokenKind.commaToken);
+
+        if (s.curToken().kind == TokenKind.rightParToken) {
+          parserError("Expected value or expression, but found '" + String.valueOf(s.curToken().kind) + "'!", s.curLineNum());
         }
       }
-
     }
-
 
     skip(s, TokenKind.rightParToken);
     leaveParser("arguments");

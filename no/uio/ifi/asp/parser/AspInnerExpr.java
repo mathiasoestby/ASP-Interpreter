@@ -7,7 +7,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
-class AspInnerExpr extends AspSyntax {
+class AspInnerExpr extends AspAtom {
   AspExpr e;
 
 

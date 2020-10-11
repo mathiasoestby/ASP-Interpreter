@@ -27,6 +27,7 @@ public class AspComparison extends AspSyntax {
     AspComparison ac = new AspComparison(s.curLineNum());
     ac.termList.add(AspTerm.parse(s));
     TokenKind t = s.curToken().kind;
+    
     while (t == TokenKind.lessToken || t == TokenKind.greaterToken || t == TokenKind.doubleEqualToken || t == TokenKind.greaterEqualToken || t == TokenKind.lessEqualToken || t == TokenKind.notEqualToken ) {
       ac.coList.add(AspCompOpr.parse(s));
       ac.termList.add(AspTerm.parse(s));

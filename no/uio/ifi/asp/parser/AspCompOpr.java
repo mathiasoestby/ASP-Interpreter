@@ -22,7 +22,7 @@ class AspCompOpr extends AspSyntax {
     if (t == TokenKind.lessToken || t == TokenKind.greaterToken || t == TokenKind.doubleEqualToken || t == TokenKind.greaterEqualToken || t == TokenKind.lessEqualToken || t == TokenKind.notEqualToken)
       sco.opr = t;
     else
-      parserError("Expected operator, but found none", s.curLineNum());
+      parserError("Expected operator, but found " + String.valueOf(s.curToken().kind) + " instead!", s.curLineNum());
 
     s.readNextToken();
 

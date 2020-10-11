@@ -18,7 +18,11 @@ class AspFactorPrefix extends AspSyntax {
     AspFactorPrefix afp = new AspFactorPrefix(s.curLineNum());
     enterParser("factor prefix");
 
-    test(s, TokenKind.plusToken, TokenKind.minusToken);
+    if (s.curToken().kind == TokenKind.plusToken) {
+      skip(s, TokenKind.plusToken);
+    } else{
+      skip(s, TokenKind.minusToken);
+    }
     afp.kind = s.curToken().kind;
 
     leaveParser("factor prefix");

@@ -23,14 +23,18 @@ abstract class AspAtom extends AspSyntax {
       a = AspFloatLiteral.parse(s);
     else if (s.curToken().kind == TokenKind.stringToken)
       a = AspStringLiteral.parse(s);
+    else if (s.curToken().kind == TokenKind.trueToken || s.curToken().kind == TokenKind.falseToken)
+      a = AspBooleanLiteral.parse(s);
     else if (s.curToken().kind == TokenKind.noneToken)
       a = AspNoneLiteral.parse(s);
+    else if (s.curToken().kind == TokenKind.leftParToken)
+      a = AspInnerExpr.parse(s);
     else if (s.curToken().kind == TokenKind.leftBracketToken)
       a = AspListDisplay.parse(s);
     else if (s.curToken().kind == TokenKind.leftBraceToken)
       a = AspDictDisplay.parse(s);
     else
-      parserError("Expected value or expression, but found " + String.valueOf(s.curToken().kind), s.curLineNum());
+      parserError("Expected value or expression, but found '" + String.valueOf(s.curToken().kind) + "'!", s.curLineNum());
 
     leaveParser("atom");
     return a;
