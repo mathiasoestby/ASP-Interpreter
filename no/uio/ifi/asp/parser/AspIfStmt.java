@@ -52,13 +52,14 @@ public class AspIfStmt extends AspCompoundStmt {
     int nPrinted = 0;
     for (int i = 0; i < this.exprList.size(); i++) {
       this.exprList.get(i).prettyPrint();
-      prettyWriteLn(":");
+      prettyWrite(":");
       prettyIndent();
       this.ifSuiteList.get(i).prettyPrint();
       prettyDedent();
+      prettyWrite("elif: ");
     }
     if (this.elseSuite != null) {
-      prettyWriteLn("Else:");
+      prettyWrite("else:");
       prettyIndent();
       this.elseSuite.prettyPrint();
       prettyDedent();
