@@ -30,7 +30,7 @@ abstract class AspAtom extends AspSyntax {
     else if (s.curToken().kind == TokenKind.leftBraceToken)
       a = AspDictDisplay.parse(s);
     else
-      parserError("Expected value or expression, but found none", s.curLineNum());
+      parserError("Expected value or expression, but found " + String.valueOf(s.curToken().kind), s.curLineNum());
 
     leaveParser("atom");
     return a;

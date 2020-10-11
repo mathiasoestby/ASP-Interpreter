@@ -5,16 +5,17 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 
-class AspReturnStmt extends AspSyntax {
+class AspReturnStmt extends AspSmallStmt {
+  AspExpr expr;
+
   AspReturnStmt(int n){
-    AspExpr expr;
     super(n);
   }
   static AspReturnStmt parse(Scanner s){
     enterParser("return stmt");
 
     skip(s, TokenKind.returnToken);
-    AspReturnStmt rs;
+    AspReturnStmt rs = new AspReturnStmt(s.curLineNum());
     rs.expr = AspExpr.parse(s);
 
     leaveParser("return stmt");

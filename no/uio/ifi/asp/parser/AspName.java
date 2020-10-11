@@ -14,19 +14,19 @@ class AspName extends AspAtom {
   }
 
   static AspName parse(Scanner s){
-    enterParser("name literal");
+    enterParser("name");
 
     AspName anl = new AspName(s.curLineNum());
     anl.navn = s.curToken().name;
     s.readNextToken();
 
-    leaveParser("name literal");
+    leaveParser("name");
 
     return anl;
   }
 
   @Override
   public void prettyPrint(){
-    System.out.println("name literal");
+    System.out.println("name");
   }
 }

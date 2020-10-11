@@ -24,21 +24,7 @@ class AspCompOpr extends AspSyntax {
     else
       parserError("Expected operator, but found none", s.curLineNum());
 
-    // if (s.curToken().kind == TokenKind.lessToken)
-    //   sco = AspLessOpr.parse(s);
-    // else if (s.curToken().kind == TokenKind.greaterToken)
-    //   sco = AspGreaterOpr.parse(s);
-    // else if (s.curToken().kind == TokenKind.doubleEqualToken)
-    //   sco = AspDoubleEqualOpr.parse(s);
-    // else if (s.curToken().kind == TokenKind.greaterEqualToken)
-    //   sco = AspGreaterEqualOpr.parse(s);
-    // else if (s.curToken().kind == TokenKind.lessEqualToken)
-    //   sco = AspLessEqualOpr.parse(s);
-    // else if (s.curToken().kind == TokenKind.notEqualToken)
-    //   sco = AspNotEqualOpr.parse(s);
-    // else
-    //   parserError("Expected operator, but found none", s.curLineNum());
-
+    s.readNextToken();
 
     leaveParser("comp opr");
     return sco;

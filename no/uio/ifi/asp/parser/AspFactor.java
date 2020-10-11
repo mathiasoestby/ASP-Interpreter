@@ -8,9 +8,9 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 class AspFactor extends AspSyntax {
-  ArrayList<AspTermOpr> fpref = new ArrayList<>();
-  ArrayList<AspFactor> prim = new ArrayList<>();
-  ArrayList<AspFactor> fopr = new ArrayList<>();
+  ArrayList<AspFactorPrefix> fpref = new ArrayList<>();
+  ArrayList<AspPrimary> prim = new ArrayList<>();
+  ArrayList<AspFactorOpr> fopr = new ArrayList<>();
 
 
   AspFactor(int n) {
@@ -18,7 +18,7 @@ class AspFactor extends AspSyntax {
   }
 
   static AspFactor parse(Scanner s) {
-    AspFactor af = AspFactor(s.curLineNum());
+    AspFactor af = new AspFactor(s.curLineNum());
     enterParser("factor");
 
     while(true){

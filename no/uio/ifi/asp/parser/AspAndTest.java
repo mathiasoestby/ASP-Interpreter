@@ -23,11 +23,18 @@ class AspAndTest extends AspSyntax {
     while (true) {
       aat.notTests.add(AspNotTest.parse(s));
 
-      if (s.curToken().kind != andToken) break;
-      skip(s, andToken);
+      if (s.curToken().kind != TokenKind.andToken) break;
+      skip(s, TokenKind.andToken);
     }
 
     leaveParser("and test");
     return aat;
   }
+
+  @Override
+  public void prettyPrint(){
+    System.out.println("TEST FOR STMT");
+  }
+
+
 }

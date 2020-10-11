@@ -23,6 +23,7 @@ class AspListDisplay extends AspAtom {
     ald.exprList.add(AspExpr.parse(s));
 
     while (s.curToken().kind == TokenKind.commaToken)
+      s.readNextToken();
       ald.exprList.add(AspExpr.parse(s));
 
     skip(s, TokenKind.rightBracketToken);

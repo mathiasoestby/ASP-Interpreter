@@ -6,6 +6,8 @@ import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 
 abstract class AspSmallStmt extends AspSyntax {
+
+
   AspSmallStmt(int n){
     super(n);
   }

@@ -9,7 +9,7 @@ import no.uio.ifi.asp.scanner.*;
 
 class AspPrimary extends AspSyntax {
   AspAtom a;
-  ArrayList<AspPrimarySuffix> apsList;
+  ArrayList<AspPrimarySuffix> apsList = new ArrayList<>();
 
   AspPrimary(int n){
     super(n);
@@ -22,7 +22,6 @@ class AspPrimary extends AspSyntax {
 
     as.a = AspAtom.parse(s);
 
-    s.readNextToken();
     while (s.curToken().kind == TokenKind.leftParToken || s.curToken().kind == TokenKind.leftBracketToken)
       as.apsList.add(AspPrimarySuffix.parse(s));
 

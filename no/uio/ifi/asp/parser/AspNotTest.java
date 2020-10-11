@@ -9,13 +9,15 @@ import no.uio.ifi.asp.scanner.*;
 
 class AspNotTest extends AspSyntax {
   Boolean hasnot = false;
-  AspComparison comparison;
+  AspComparison comp;
 
   AspNotTest(int n) {
     super(n);
   }
 
   static AspNotTest parse(Scanner s) {
+    enterParser("not test");
+
     AspNotTest ant = new AspNotTest(s.curLineNum());
     if (s.curToken().kind == TokenKind.notToken) {
       skip(s, TokenKind.notToken);
@@ -23,6 +25,12 @@ class AspNotTest extends AspSyntax {
     }
     ant.comp = AspComparison.parse(s);
 
+    leaveParser("not test");
     return ant;
+  }
+
+  @Override
+  public void prettyPrint(){
+    System.out.println("TEST FOR STMT");
   }
 }

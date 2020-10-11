@@ -17,20 +17,13 @@ class AspTerm extends AspSyntax {
   }
 
   static AspTerm parse(Scanner s) {
-    AspTerm at = AspTerm(s.curLineNum());
+    AspTerm at = new AspTerm(s.curLineNum());
     enterParser("term");
 
     at.factor.add(AspFactor.parse(s));
-
-    while(true){
-      if (s.curToken().kind == TokenKind.plusToken ||
-          s.curToken().kind == TokenKind.minusToken)
-      {
+    while (s.curToken().kind == TokenKind.plusToken || s.curToken().kind == TokenKind.minusToken){
         at.topr.add(AspTermOpr.parse(s));
         at.factor.add(AspFactor.parse(s));
-      } else {
-        break;
-      }
     }
     leaveParser("term");
     return at;

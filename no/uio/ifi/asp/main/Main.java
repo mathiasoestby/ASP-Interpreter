@@ -97,12 +97,12 @@ public class Main {
       AspSyntax.skip(s, newLineToken);
 
       e.prettyPrint();  log.prettyWriteLn(" ==>");
-      try {
-        RuntimeValue res = e.eval(emptyScope);
-        log.traceEval(res.showInfo(), e);
-      } catch (RuntimeReturnValue rrv) {
-        panic("Uncaught return exception!");
-      }
+      // try { -------------------------------------------------------------- legg denne tilbake i del 3 eller 4
+      //   RuntimeValue res = e.eval(emptyScope);
+      //   log.traceEval(res.showInfo(), e);
+      // } catch (RuntimeReturnValue rrv) {
+      //   panic("Uncaught return exception!");
+      // }
     }
   }
 
@@ -116,11 +116,11 @@ public class Main {
 
     RuntimeScope lib = new RuntimeLibrary();
     RuntimeScope globals = new RuntimeScope(lib);
-    try {
-      prog.eval(globals);
-    } catch (RuntimeReturnValue rrv) {
-      panic("Uncaught return exception!");
-    }
+    // try { -------------------------------------------------------------- legg denne tilbake i del 3 eller 4
+    //   prog.eval(globals);
+    // } catch (RuntimeReturnValue rrv) {
+    //   panic("Uncaught return exception!");
+    // }
   }
 
 

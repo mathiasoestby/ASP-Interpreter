@@ -1,0 +1,41 @@
+package no.uio.ifi.asp.parser;
+
+import java.util.ArrayList;
+
+import no.uio.ifi.asp.main.*;
+import no.uio.ifi.asp.runtime.*;
+import no.uio.ifi.asp.scanner.*;
+import static no.uio.ifi.asp.scanner.TokenKind.*;
+
+
+class AspAssignment extends AspSmallStmt{
+  AspName name;
+  ArrayList<AspSubscription> asList = new ArrayList<>();
+  AspExpr expr;
+
+  AspAssignment(int n){
+    super(n);
+  }
+  static AspAssignment parse(Scanner s){
+    enterParser("assignment");
+    AspAssignment aa = new AspAssignment(s.curLineNum());
+
+    aa.name = AspName.parse(s);
+
+    while (s.curToken().kind == TokenKind.leftBracketToken)
+      aa.asList.add(AspSubscription.parse(s));
+
+    skip(s, TokenKind.equalToken);
+
+    aa.expr = AspExpr.parse(s);
+
+
+    leaveParser("assignment");
+    return aa;
+  }
+
+   @Override
+   public void prettyPrint(){
+     System.out.println("TEST FOR STMT");
+   }
+}
