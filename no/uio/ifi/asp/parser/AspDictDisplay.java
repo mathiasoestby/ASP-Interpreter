@@ -41,6 +41,19 @@ class AspDictDisplay extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("dict display");
+
+    prettyWrite("{");
+    prettyWriteLn();
+
+    for (int i = 0; i < this.aslList.size(); i++) {
+      if (i > 0)
+        prettyWriteLn(", ");
+
+      this.aslList.get(i).prettyPrint();
+      prettyWrite(" : ");
+      this.exprList.get(i).prettyPrint();
+    }
+
+    prettyWrite("}");
   }
 }

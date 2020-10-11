@@ -33,7 +33,8 @@ class AspInnerExpr extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
-
+    prettyWrite("(");
+    this.e.prettyPrint();
+    prettyWrite(")");
   }
 }

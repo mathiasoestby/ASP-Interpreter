@@ -31,6 +31,6 @@ class AspBooleanLiteral extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("boolean literal");
+    prettyWrite(String.valueOf(this.bool));
   }
 }

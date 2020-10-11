@@ -19,7 +19,6 @@ class AspIntegerLiteral extends AspAtom {
     AspIntegerLiteral ail = new AspIntegerLiteral(s.curLineNum());
     ail.tall = s.curToken().integerLit;
     s.readNextToken();
-
     leaveParser("integer literal");
 
     return ail;
@@ -27,6 +26,6 @@ class AspIntegerLiteral extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("integer literal");
+    prettyWrite(String.valueOf(this.tall));
   }
 }

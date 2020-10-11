@@ -23,6 +23,6 @@ class AspPassStmt extends AspSmallStmt{
 
    @Override
    public void prettyPrint(){
-     System.out.println("TEST FOR STMT");
+     prettyWrite("pass");
    }
 }

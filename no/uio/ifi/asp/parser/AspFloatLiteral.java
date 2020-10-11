@@ -26,6 +26,6 @@ class AspFloatLiteral extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("float literal");
+    prettyWrite(String.valueOf(this.tall));
   }
 }

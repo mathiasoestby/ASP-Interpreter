@@ -18,6 +18,7 @@ class AspStringLiteral extends AspAtom {
 
     AspStringLiteral asl = new AspStringLiteral(s.curLineNum());
     asl.tekst = s.curToken().stringLit;
+    System.out.println(asl.tekst);
     s.readNextToken();
 
     leaveParser("string literal");
@@ -27,6 +28,6 @@ class AspStringLiteral extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("string literal");
+    prettyWrite(this.tekst);
   }
 }
