@@ -42,6 +42,14 @@ public class AspSuite extends AspSyntax {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
+    if (this.stmtList.isEmpty()){
+      prettyWriteLn();
+      prettyIndent();
+      for (AspStmt stmt : this.stmtList)
+        stmt.prettyPrint();
+      prettyDedent();
+    } else {
+      this.ssl.prettyPrint();
+    }
   }
 }

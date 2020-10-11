@@ -45,6 +45,7 @@ class AspDictDisplay extends AspAtom {
     prettyWrite("{");
     prettyWriteLn();
 
+    prettyIndent();
     for (int i = 0; i < this.aslList.size(); i++) {
       if (i > 0)
         prettyWriteLn(", ");
@@ -53,7 +54,7 @@ class AspDictDisplay extends AspAtom {
       prettyWrite(" : ");
       this.exprList.get(i).prettyPrint();
     }
-
+    prettyDedent();
     prettyWrite("}");
   }
 }

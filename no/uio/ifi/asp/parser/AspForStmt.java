@@ -38,6 +38,11 @@ public class AspForStmt extends AspCompoundStmt {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
+    prettyWrite("for ");
+    this.name.prettyPrint();
+    prettyWrite(" in ");
+    this.expr.prettyPrint();
+    prettyWrite(": ");
+    this.suite.prettyPrint();
   }
 }

@@ -30,6 +30,8 @@ public class AspIfStmt extends AspCompoundStmt {
       is.ifSuiteList.add(AspSuite.parse(s));
       if (s.curToken().kind != TokenKind.elifToken){
         break;
+      } else {
+        skip(s, TokenKind.elifToken);
       }
     }
 
