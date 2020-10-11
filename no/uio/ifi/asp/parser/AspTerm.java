@@ -31,6 +31,10 @@ class AspTerm extends AspSyntax {
 
   @Override
   public void prettyPrint() {
-    //-- Must be changed in part 2:
+    for (int i = 0; i < this.factor.size(); i++) {
+      if (i >= 1) this.topr.get(i-1).prettyPrint();
+      this.factor.get(i).prettyPrint();
+
+    }
   }
 }

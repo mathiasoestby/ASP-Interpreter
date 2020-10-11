@@ -48,6 +48,11 @@ class AspFactor extends AspSyntax {
 
   @Override
   public void prettyPrint() {
-    //-- Must be changed in part 2:
+
+    for (int i = 0; i < this.prim.size(); i++) {
+      if (i >= 1) this.fopr.get(i-1).prettyPrint();
+      if (this.fpref.get(i) != null) this.fpref.get(i).prettyPrint();
+      this.prim.get(i).prettyPrint();
+    }
   }
 }

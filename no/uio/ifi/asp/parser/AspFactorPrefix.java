@@ -18,12 +18,12 @@ class AspFactorPrefix extends AspSyntax {
     AspFactorPrefix afp = new AspFactorPrefix(s.curLineNum());
     enterParser("factor prefix");
 
+    afp.kind = s.curToken().kind;
     if (s.curToken().kind == TokenKind.plusToken) {
       skip(s, TokenKind.plusToken);
     } else{
       skip(s, TokenKind.minusToken);
     }
-    afp.kind = s.curToken().kind;
 
     leaveParser("factor prefix");
     return afp;
@@ -31,6 +31,6 @@ class AspFactorPrefix extends AspSyntax {
 
   @Override
   public void prettyPrint() {
-    //-- Must be changed in part 2:
+    prettyWrite(String.valueOf(this.kind)); 
   }
 }

@@ -31,8 +31,4 @@ abstract class AspStmt extends AspSyntax {
     return a;
   }
 
-   @Override
-   public void prettyPrint(){
-     System.out.println("TEST FOR STMT");
-   }
 }

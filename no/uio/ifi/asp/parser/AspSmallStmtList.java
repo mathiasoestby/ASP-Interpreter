@@ -36,6 +36,15 @@ class AspSmallStmtList extends AspStmt {
 
    @Override
    public void prettyPrint(){
-     System.out.println("TEST FOR SMALL STMT LIST");
+     boolean doSemi = false;
+     if (this.assList.size() > 1) {
+        doSemi = true;
+     }
+     for (AspSmallStmt sst : this.assList) {
+       sst.prettyPrint();
+       if (doSemi) {
+         prettyWrite("; ");
+       }
+     }
    }
 }

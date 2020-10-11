@@ -24,6 +24,7 @@ class AspReturnStmt extends AspSmallStmt {
 
    @Override
    public void prettyPrint(){
-     System.out.println("TEST FOR RETURN STMT");
+     prettyWrite("return ");
+     this.expr.prettyPrint();
    }
 }

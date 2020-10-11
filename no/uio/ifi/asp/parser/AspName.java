@@ -27,6 +27,6 @@ class AspName extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("name");
+    prettyWrite(this.navn);
   }
 }

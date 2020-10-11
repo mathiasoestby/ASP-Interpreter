@@ -7,7 +7,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
-public class AspExpr extends AspExprStmt {
+class AspExpr extends AspExprStmt {
   //-- Must be changed in part 2:
   ArrayList<AspAndTest> andTests = new ArrayList<>();
 
@@ -35,6 +35,10 @@ public class AspExpr extends AspExprStmt {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
+    int nPrinted = 0;
+    for (AspAndTest at : this.andTests) {
+      if (nPrinted > 0) prettyWrite(" or ");
+      at.prettyPrint(); nPrinted++;
+    }
   }
 }

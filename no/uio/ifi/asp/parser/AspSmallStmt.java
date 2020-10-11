@@ -30,8 +30,4 @@ abstract class AspSmallStmt extends AspSyntax {
     return ss;
   }
 
-   @Override
-   public void prettyPrint(){
-     System.out.println("TEST FOR SMALL STMT");
-   }
 }
