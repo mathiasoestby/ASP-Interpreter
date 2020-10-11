@@ -51,6 +51,5 @@ public class AspSuite extends AspSyntax {
         stmt.prettyPrint();
       prettyDedent();
     }
-    prettyWriteLn();
   }
 }

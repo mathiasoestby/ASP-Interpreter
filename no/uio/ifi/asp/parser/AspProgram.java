@@ -23,8 +23,8 @@ public class AspProgram extends AspSyntax {
     while (s.curToken().kind != eofToken) {
       //-- Must be changed in part 2:
        ap.stmts.add(AspStmt.parse(s));
-       if (s.curToken().kind == TokenKind.newLineToken)
-        s.readNextToken();
+       // if (s.curToken().kind == TokenKind.newLineToken)
+       //  s.readNextToken();
     }
 
     leaveParser("program");
@@ -36,7 +36,6 @@ public class AspProgram extends AspSyntax {
   public void prettyPrint() {
     for (AspStmt st: this.stmts) {
         st.prettyPrint();
-        prettyWriteLn();
     }
   }
 

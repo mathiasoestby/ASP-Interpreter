@@ -49,14 +49,14 @@ public class AspIfStmt extends AspCompoundStmt {
   @Override
   public void prettyPrint(){
     prettyWrite("if ");
-    int nPrinted = 0;
     for (int i = 0; i < this.exprList.size(); i++) {
       this.exprList.get(i).prettyPrint();
       prettyWrite(":");
       prettyIndent();
       this.ifSuiteList.get(i).prettyPrint();
       prettyDedent();
-      prettyWrite("elif: ");
+      if (i != this.exprList.size()-1)
+        prettyWrite("elif ");
     }
     if (this.elseSuite != null) {
       prettyWrite("else:");
@@ -64,5 +64,7 @@ public class AspIfStmt extends AspCompoundStmt {
       this.elseSuite.prettyPrint();
       prettyDedent();
     }
+    prettyWriteLn();
+
   }
 }

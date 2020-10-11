@@ -44,5 +44,7 @@ public class AspForStmt extends AspCompoundStmt {
     this.expr.prettyPrint();
     prettyWrite(": ");
     this.suite.prettyPrint();
+    prettyWriteLn();
+
   }
 }

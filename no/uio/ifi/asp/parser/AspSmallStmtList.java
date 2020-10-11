@@ -46,5 +46,6 @@ class AspSmallStmtList extends AspStmt {
          prettyWrite("; ");
        }
      }
+     prettyWriteLn();
    }
 }

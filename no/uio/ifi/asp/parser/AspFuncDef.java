@@ -57,5 +57,7 @@ public class AspFuncDef extends AspCompoundStmt{
     }
     prettyWrite("):");
     this.suite.prettyPrint();
+    prettyWriteLn();
+
   }
 }

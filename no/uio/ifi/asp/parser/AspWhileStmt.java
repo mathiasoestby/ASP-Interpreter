@@ -39,5 +39,7 @@ public class AspWhileStmt extends AspCompoundStmt {
     this.expr.prettyPrint();
     prettyWrite(": ");
     this.suite.prettyPrint();
+    prettyWriteLn();
+
   }
 }

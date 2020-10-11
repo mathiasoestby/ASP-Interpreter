@@ -43,18 +43,21 @@ class AspDictDisplay extends AspAtom {
   public void prettyPrint(){
 
     prettyWrite("{");
-    prettyWriteLn();
+    if (!this.aslList.isEmpty()){
+      prettyWriteLn();
+      prettyIndent();
+      for (int i = 0; i < this.aslList.size(); i++) {
+        if (i > 0)
+          prettyWriteLn(", ");
 
-    prettyIndent();
-    for (int i = 0; i < this.aslList.size(); i++) {
-      if (i > 0)
-        prettyWriteLn(", ");
-
-      this.aslList.get(i).prettyPrint();
-      prettyWrite(" : ");
-      this.exprList.get(i).prettyPrint();
+        this.aslList.get(i).prettyPrint();
+        prettyWrite(" : ");
+        this.exprList.get(i).prettyPrint();
+      }
+      prettyDedent();
+      prettyWriteLn();
     }
-    prettyDedent();
+
     prettyWrite("}");
   }
 }
