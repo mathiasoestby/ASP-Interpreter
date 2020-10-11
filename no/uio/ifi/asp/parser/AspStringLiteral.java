@@ -28,6 +28,6 @@ class AspStringLiteral extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    prettyWrite(this.tekst);
+    prettyWrite('"' + this.tekst + '"');
   }
 }
