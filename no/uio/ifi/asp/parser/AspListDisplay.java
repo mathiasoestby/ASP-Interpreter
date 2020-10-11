@@ -20,11 +20,17 @@ class AspListDisplay extends AspAtom {
     skip(s, TokenKind.leftBracketToken);
 
     AspListDisplay ald = new AspListDisplay(s.curLineNum());
-    ald.exprList.add(AspExpr.parse(s));
 
-    while (s.curToken().kind == TokenKind.commaToken)
-      s.readNextToken();
+    if (s.curToken().kind != TokenKind.rightBracketToken){
       ald.exprList.add(AspExpr.parse(s));
+      while (s.curToken().kind == TokenKind.commaToken){
+        s.readNextToken();
+        ald.exprList.add(AspExpr.parse(s));
+      }
+    }
+
+
+
 
     skip(s, TokenKind.rightBracketToken);
 
