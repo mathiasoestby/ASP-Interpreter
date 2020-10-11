@@ -30,6 +30,8 @@ public class AspIfStmt extends AspCompoundStmt {
       is.ifSuiteList.add(AspSuite.parse(s));
       if (s.curToken().kind != TokenKind.elifToken){
         break;
+      } else {
+        skip(s, TokenKind.elifToken);
       }
     }
 
@@ -39,8 +41,6 @@ public class AspIfStmt extends AspCompoundStmt {
       is.elseSuite = AspSuite.parse(s);
     }
 
-
-
     leaveParser("if stmt");
     return is;
   }
@@ -48,6 +48,20 @@ public class AspIfStmt extends AspCompoundStmt {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
+    prettyWrite("if ");
+    int nPrinted = 0;
+    for (int i = 0; i < this.exprList.size(); i++) {
+      this.exprList.get(i).prettyPrint();
+      prettyWriteLn(":");
+      prettyIndent();
+      this.ifSuiteList.get(i).prettyPrint();
+      prettyDedent();
+    }
+    if (this.elseSuite != null) {
+      prettyWriteLn("Else:");
+      prettyIndent();
+      this.elseSuite.prettyPrint();
+      prettyDedent();
+    }
   }
 }

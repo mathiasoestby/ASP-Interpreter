@@ -55,6 +55,6 @@ class AspFactorOpr extends AspSyntax {
 
   @Override
   public void prettyPrint() {
-    //-- Must be changed in part 2:
+    prettyWrite(this.kind.toString());
   }
 }

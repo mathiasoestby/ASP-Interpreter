@@ -32,6 +32,6 @@ class AspCompOpr extends AspSyntax {
 
   @Override
   public void prettyPrint(){
-    System.out.println(("hei"));
+    prettyWrite(" " + this.opr.toString() + " ");
   }
 }

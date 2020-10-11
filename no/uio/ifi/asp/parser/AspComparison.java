@@ -7,7 +7,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
-public class AspComparison extends AspSyntax {
+class AspComparison extends AspSyntax {
   ArrayList<AspCompOpr> coList= new ArrayList<>();
   ArrayList<AspTerm> termList = new ArrayList<>();
 

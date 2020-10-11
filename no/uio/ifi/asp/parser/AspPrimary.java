@@ -32,9 +32,9 @@ class AspPrimary extends AspSyntax {
 
   @Override
   public void prettyPrint(){
-    a.prettyPrint()
+    a.prettyPrint();
     for (AspPrimarySuffix aps : this.apsList) {
-      aps.prettyPrint()
+      aps.prettyPrint();
     }
   }
 }
