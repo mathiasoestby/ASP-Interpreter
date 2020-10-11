@@ -19,9 +19,4 @@ abstract class AspExprStmt extends AspSmallStmt {
     leaveParser("expr stmt");
     return aes;
   }
-
-   @Override
-   public void prettyPrint(){
-     System.out.println("TEST FOR STMT");
-   }
 }

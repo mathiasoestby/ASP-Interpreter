@@ -6,7 +6,7 @@ import no.uio.ifi.asp.scanner.*;
 
 
 class AspSubscription extends AspPrimarySuffix {
-  AspExpr e;
+  AspExpr expr;
 
   AspSubscription(int n){
     super(n);
@@ -18,7 +18,7 @@ class AspSubscription extends AspPrimarySuffix {
     AspSubscription as = new AspSubscription(s.curLineNum());
 
     skip(s, TokenKind.leftBracketToken);
-    as.e = AspExpr.parse(s);
+    as.expr = AspExpr.parse(s);
     skip(s, TokenKind.rightBracketToken);
     leaveParser("subscription");
 
@@ -27,6 +27,8 @@ class AspSubscription extends AspPrimarySuffix {
 
   @Override
   public void prettyPrint(){
-    System.out.println("integer literal");
+    prettyWrite("[");
+    this.expr.prettyPrint();
+    prettyWrite("]");
   }
 }

@@ -36,6 +36,15 @@ class AspAssignment extends AspSmallStmt{
 
    @Override
    public void prettyPrint(){
-     System.out.println("TEST FOR STMT");
+
+     this.name.prettyPrint();
+
+     for (AspSubscription as : this.asList) {
+       as.prettyPrint();
+     }
+
+     prettyWrite(" = ");
+     this.expr.prettyPrint();
+
    }
 }

@@ -18,7 +18,7 @@ public class AspExpr extends AspExprStmt {
 
   public static AspExpr parse(Scanner s) {
     enterParser("expr");
-    
+
     AspExpr ae = new AspExpr(s.curLineNum());
 
     ae.andTests.add(AspAndTest.parse(s));

@@ -41,6 +41,16 @@ class AspListDisplay extends AspAtom {
 
   @Override
   public void prettyPrint(){
-    System.out.println("list display");
+
+    int nPrinted = 0;
+    prettyWrite("[");
+
+    for (AspExpr expr : this.exprList) {
+      if (nPrinted > 0)
+        prettyWrite(", ");
+      expr.prettyPrint(); nPrinted++;
+    }
+
+    prettyWrite("]");
   }
 }
