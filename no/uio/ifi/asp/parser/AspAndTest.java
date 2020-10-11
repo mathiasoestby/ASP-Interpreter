@@ -33,7 +33,12 @@ class AspAndTest extends AspSyntax {
 
   @Override
   public void prettyPrint(){
-    System.out.println("TEST FOR STMT");
+    int nPrinted = 0;
+
+    for (AspNotTest nt : this.notTests) {
+      if (nPrinted > 0) prettyWrite(" and ");
+      nt.prettyPrint();
+    }
   }
 
 

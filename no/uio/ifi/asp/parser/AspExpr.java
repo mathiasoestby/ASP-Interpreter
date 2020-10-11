@@ -18,7 +18,7 @@ public class AspExpr extends AspExprStmt {
 
   public static AspExpr parse(Scanner s) {
     enterParser("expr");
-    
+
     AspExpr ae = new AspExpr(s.curLineNum());
 
     ae.andTests.add(AspAndTest.parse(s));
@@ -35,6 +35,10 @@ public class AspExpr extends AspExprStmt {
 
   @Override
   public void prettyPrint(){
-    System.out.println("hei");
+    int nPrinted = 0;
+    for (AspAndTest at : this.andTests) {
+      if (nPrinted > 0) prettyWrite(" or ");
+      at.prettyPrint(); nPrinted++;
+    }
   }
 }

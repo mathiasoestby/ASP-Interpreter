@@ -31,6 +31,7 @@ class AspNotTest extends AspSyntax {
 
   @Override
   public void prettyPrint(){
-    System.out.println("TEST FOR STMT");
+    if (this.hasnot) prettyWrite("not ");
+    this.comp.prettyPrint();
   }
 }
