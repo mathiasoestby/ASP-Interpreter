@@ -17,6 +17,9 @@ class AspStringLiteral extends AspAtom {
     enterParser("string literal");
 
     AspStringLiteral asl = new AspStringLiteral(s.curLineNum());
+    if (s.curToken().stringLit == null) {
+      parserError("Expected string literal, but found " + s.curToken().kind, s.curLineNum());
+    }
     asl.tekst = s.curToken().stringLit;
     s.readNextToken();
 

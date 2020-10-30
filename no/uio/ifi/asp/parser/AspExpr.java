@@ -7,7 +7,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
-class AspExpr extends AspExprStmt {
+public class AspExpr extends AspExprStmt {
   //-- Must be changed in part 2:
   ArrayList<AspAndTest> andTests = new ArrayList<>();
 

@@ -31,6 +31,6 @@ class AspFactorPrefix extends AspSyntax {
 
   @Override
   public void prettyPrint() {
-    prettyWrite(String.valueOf(this.kind)); 
+    prettyWrite(String.valueOf(this.kind));
   }
 }
