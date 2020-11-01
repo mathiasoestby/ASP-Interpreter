@@ -28,4 +28,10 @@ class AspIntegerLiteral extends AspAtom {
   public void prettyPrint(){
     prettyWrite(String.valueOf(this.tall));
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue v = new RuntimeIntegerValue(this.tall);
+    return v;
+  }
 }
