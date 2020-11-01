@@ -40,6 +40,15 @@ class AspAndTest extends AspSyntax {
       nt.prettyPrint();
     }
   }
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue v = notTests.get(0).eval(curScope);
+    for (int i = 1; i < notTests.size(); i++) {
+      if (! v.getBoolValue("and operand", this)) return v;
+      v = notTest.get(i).eval(curScope);
+    }
+    return v;
+  }
 
 
 }

@@ -48,4 +48,25 @@ class AspComparison extends AspSyntax {
 
     }
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue v = termList.get(0).eval(curScope);
+    RuntimeValue nextv;
+    RuntimeValue opr;
+    for (int i = 0; i < coList.size(); i++) {
+      v = termList.get(i).eval(curScope);
+      nextv = termList.get(i+1).eval(curScope);
+      opr = coList.get(i).eval(curScope);
+      if (opr == TokenKind.lessToken) v = v.evalLess(nextv);
+      else if (opr == TokenKind.greaterToken) v = v.evalGreater(nextv);
+      else if (opr == TokenKind.doubleEqualToken) v = v.evalEqual(nextv);
+      else if (opr == TokenKind.greaterEqualToken) v = v.evalGreaterEqual(nextv);
+      else if (opr == TokenKind.lessEqualToken) v = v.evalLessEqual(nextv);
+      else if (opr == TokenKind.notEqualToken) v = v.evalNotEqual(nextv);
+
+      if (!v.getBoolValue("comp operand", this)) return v;
+    }
+    return v;
+  }
 }
