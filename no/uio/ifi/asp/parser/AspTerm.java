@@ -40,6 +40,18 @@ class AspTerm extends AspSyntax {
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    return null;
+    RuntimeValue v = this.factor.get(0).eval(curScope);
+    for (int i = 1; i < this.factor.size(); i++) {
+      TokenKind k = topr.get(i-1).kind;
+      switch (k) {
+        case minusToken:
+          v = v.evalSubtract(factor.get(i).eval(curScope), this); break;
+        case plusToken:
+          v = v.evalAdd(factor.get(i).eval(curScope), this); break;
+        default:
+          Main.panic("Illegal term operator: " + k + "!");
+      }
+    }
+    return v;
   }
 }
