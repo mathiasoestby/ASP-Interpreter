@@ -25,7 +25,7 @@ public class RuntimeStringValue extends RuntimeValue {
   public String getStringValue(String what, AspSyntax where) {
     return this.stringValue;
   }
-  
+
   @Override
   public boolean getBoolValue(String what, AspSyntax where) {
     return this.stringValue.isEmpty();
@@ -94,9 +94,36 @@ public class RuntimeStringValue extends RuntimeValue {
   @Override
   public RuntimeValue evalLess(RuntimeValue v, AspSyntax where) {
     if (v instanceof RuntimeStringValue) {
-      return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string not equal", where)) < 0);
+      return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string less", where)) < 0);
     }
     runtimeError("Type error for string comparison <.", where);
+    return null;  // Required by the compiler!
+  }
+
+  @Override
+  public RuntimeValue evalLessEqual(RuntimeValue v, AspSyntax where) {
+    if (v instanceof RuntimeStringValue) {
+      return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string lessEqual", where)) <= 0);
+    }
+    runtimeError("Type error for string comparison <=.", where);
+    return null;  // Required by the compiler!
+  }
+
+  @Override
+  public RuntimeValue evalGreater(RuntimeValue v, AspSyntax where) {
+    if (v instanceof RuntimeStringValue) {
+      return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string Greater", where)) > 0);
+    }
+    runtimeError("Type error for string comparison >.", where);
+    return null;  // Required by the compiler!
+  }
+
+  @Override
+  public RuntimeValue evalGreaterEqual(RuntimeValue v, AspSyntax where) {
+    if (v instanceof RuntimeStringValue) {
+      return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string not equal", where)) >= 0);
+    }
+    runtimeError("Type error for string comparison >=.", where);
     return null;  // Required by the compiler!
   }
 }
