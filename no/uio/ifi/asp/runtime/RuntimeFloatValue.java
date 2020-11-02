@@ -100,7 +100,7 @@ public class RuntimeFloatValue extends RuntimeValue {
     @Override
     public RuntimeValue evalModulo(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
-        return new RuntimeFloatValue((this.floatValue - v.getFloatValue("float mod", where)) * Math.floor(this.floatValue / v.getFloatValue("float mod", where)));
+        return new RuntimeFloatValue((this.floatValue - v.getIntValue("float mod", where)) * Math.floor(this.floatValue / v.getIntValue("float mod", where)));
       }
       if (v instanceof RuntimeFloatValue) {
         return new RuntimeFloatValue((this.floatValue - v.getFloatValue("float mod", where)) * Math.floor(this.floatValue / v.getFloatValue("float mod", where)));
