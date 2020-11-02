@@ -55,4 +55,46 @@ class AspFactor extends AspSyntax {
       this.prim.get(i).prettyPrint();
     }
   }
+
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue v = this.prim.get(0).eval(curScope);
+    if (this.fpref.get(0) != null) {
+      switch (this.fpref.get(0).kind()) {
+        case plusToken:
+          v = v.evalPositive(this.fpref.get(0)); break;
+        case minusToken:
+          v = v.evalNegative(this.fpref.get(0)); break;
+        default:
+          Main.panic("Illegal factor operator: " + this.fpref.get(0).kind() + "!");
+      }
+    }
+
+    for (int i = 1; i < this.prim.size(); i++) {
+      RuntimeValue v2 = this.prim.get(i).eval(curScope);
+      if (this.fpref.get(i) != null) {
+        switch (this.fpref.get(0).kind()) {
+          case plusToken:
+            v = v.evalPositive(this.fpref.get(0)); break;
+          case minusToken:
+            v = v.evalNegative(this.fpref.get(0)); break;
+          default:
+            Main.panic("Illegal factor operator: " + this.fpref.get(0).kind() + "!");
+        }
+      }
+      switch (this.fopr.get(i-1).kind()) {
+        case astToken:
+          v = v.evalMultiply(v2, this.fopr.get(i-1)); break;
+        case slashToken:
+          v = v.evalDivide(v2, this.fopr.get(i-1)); break;
+        case percentToken:
+          v = v.evalModulo(v2, this.fopr.get(i-1)); break;
+        case doubleSlashToken:
+          v = v.evalIntDivide(v2, this.fopr.get(i-1)); break;
+      }
+    }
+
+    return v;
+  }
 }

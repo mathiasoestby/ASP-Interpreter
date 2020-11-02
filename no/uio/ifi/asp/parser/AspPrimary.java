@@ -37,4 +37,10 @@ class AspPrimary extends AspSyntax {
       aps.prettyPrint();
     }
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue v = this.a.eval(curScope);
+    return v;
+  }
 }
