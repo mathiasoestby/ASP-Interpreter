@@ -41,4 +41,9 @@ public class AspExpr extends AspExprStmt {
       at.prettyPrint(); nPrinted++;
     }
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

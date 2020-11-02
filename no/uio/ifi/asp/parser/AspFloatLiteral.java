@@ -28,4 +28,9 @@ class AspFloatLiteral extends AspAtom {
   public void prettyPrint(){
     prettyWrite(String.valueOf(this.tall));
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

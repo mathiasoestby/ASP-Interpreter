@@ -28,4 +28,9 @@ class AspNoneLiteral extends AspAtom {
   public void prettyPrint(){
     prettyWrite("None");
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

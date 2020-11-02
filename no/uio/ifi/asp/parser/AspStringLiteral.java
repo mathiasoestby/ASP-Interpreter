@@ -32,4 +32,9 @@ class AspStringLiteral extends AspAtom {
   public void prettyPrint(){
     prettyWrite('"' + this.tekst + '"');
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

@@ -34,4 +34,9 @@ class AspCompOpr extends AspSyntax {
   public void prettyPrint(){
     prettyWrite(" " + this.opr.toString() + " ");
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return RuntimeStringValue(this.opr);//this.opr;
+  }
 }

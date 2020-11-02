@@ -47,4 +47,9 @@ class AspAssignment extends AspSmallStmt{
      this.expr.prettyPrint();
 
    }
+
+   @Override
+   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+     return null;
+   }
 }

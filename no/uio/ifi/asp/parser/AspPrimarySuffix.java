@@ -34,4 +34,5 @@ abstract class AspPrimarySuffix extends AspAtom {
   public void prettyPrint(){
     System.out.println("primary suffix");
   }
+
 }

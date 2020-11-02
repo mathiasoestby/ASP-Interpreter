@@ -52,4 +52,8 @@ class AspArguments extends AspPrimarySuffix {
 
     prettyWrite(")");
   }
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }
