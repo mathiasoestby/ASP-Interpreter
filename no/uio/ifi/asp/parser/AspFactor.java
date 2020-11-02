@@ -70,15 +70,17 @@ class AspFactor extends AspSyntax {
           Main.panic("Illegal factor operator: " + this.fpref.get(0).kind + "!");
       }
     }
-
+    System.out.println(v);
     for (int i = 1; i < this.prim.size(); i++) {
       RuntimeValue v2 = this.prim.get(i).eval(curScope);
+
+      System.out.println(v2);
       if (this.fpref.get(i) != null) {
-        switch (this.fpref.get(0).kind) {
+        switch (this.fpref.get(i).kind) {
           case plusToken:
-            v = v.evalPositive(this.fpref.get(0)); break;
+            v = v.evalPositive(this.fpref.get(i)); break;
           case minusToken:
-            v = v.evalNegate(this.fpref.get(0)); break;
+            v = v.evalNegate(this.fpref.get(i)); break;
           default:
             Main.panic("Illegal factor operator: " + this.fpref.get(0).kind + "!");
         }
