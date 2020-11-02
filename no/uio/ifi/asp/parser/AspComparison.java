@@ -54,6 +54,7 @@ class AspComparison extends AspSyntax {
     RuntimeValue v = termList.get(0).eval(curScope);
     RuntimeValue nextv;
     AspCompOpr opr;
+
     for (int i = 0; i < coList.size(); i++) {
       v = termList.get(i).eval(curScope);
       nextv = termList.get(i+1).eval(curScope);

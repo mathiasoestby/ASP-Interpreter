@@ -37,6 +37,7 @@ class AspNotTest extends AspSyntax {
 
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = comp.eval(curScope);
+
     if (this.hasnot) v = v.evalNot(this);
     return v;
 

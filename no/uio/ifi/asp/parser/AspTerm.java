@@ -41,6 +41,7 @@ class AspTerm extends AspSyntax {
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = this.factor.get(0).eval(curScope);
+
     for (int i = 1; i < this.factor.size(); i++) {
       TokenKind k = topr.get(i-1).kind;
       switch (k) {

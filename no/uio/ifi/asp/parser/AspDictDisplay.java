@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
-
+import java.util.HashMap;
 
 class AspDictDisplay extends AspAtom {
   ArrayList<AspStringLiteral> aslList = new ArrayList<>();
@@ -63,6 +63,11 @@ class AspDictDisplay extends AspAtom {
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    return null;
+    HashMap<RuntimeValue, RuntimeValue> dict = new HashMap<RuntimeValue, RuntimeValue>();
+
+    for (int i = 0; i < aslList.size(); i++ ) {
+      dict.put(aslList.get(i).eval(curScope), exprList.get(i).eval(curScope));
+    }
+    return new RuntimeDict(dict);
   }
 }
