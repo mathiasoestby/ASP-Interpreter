@@ -7,7 +7,7 @@ import no.uio.ifi.asp.scanner.Token;
 
 public class LogFile {
     public boolean doLogEval = false,
-	doLogParser = false, 
+	doLogParser = false,
 	doLogPrettyPrint = false,
 	doLogScanner = false;
 
@@ -30,7 +30,7 @@ public class LogFile {
 
     private void writeLogLine(String data) {
 	try {
-	    PrintWriter log = 
+	    PrintWriter log =
 		new PrintWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(logFileName,nLogLines>0),
@@ -49,7 +49,7 @@ public class LogFile {
      * @param message  The error message
      */
     public void noteError(String message) {
-	if (nLogLines > 0) 
+	if (nLogLines > 0)
 	    writeLogLine(message);
     }
 
@@ -66,7 +66,7 @@ public class LogFile {
 	}
     }
 
-	
+
     /*
      * Make a note in the log file that another token has been read.
      * This note will only be made if the user has requested it.
@@ -110,7 +110,7 @@ public class LogFile {
 
     public void prettyWrite(String s) {
 	if (prettyLine.equals("")) {
-	    for (int i = 1;  i <= prettyIndentation;  i++) 
+	    for (int i = 1;  i <= prettyIndentation;  i++)
 		prettyLine += "  ";
 	}
 	prettyLine += s;

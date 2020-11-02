@@ -71,7 +71,6 @@ class AspFactor extends AspSyntax {
       }
     }
 
-
     for (int i = 1; i < this.prim.size(); i++) {
       RuntimeValue v2 = this.prim.get(i).eval(curScope);
       if (this.fpref.get(i) != null) {
