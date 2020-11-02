@@ -58,12 +58,12 @@ class AspComparison extends AspSyntax {
       v = termList.get(i).eval(curScope);
       nextv = termList.get(i+1).eval(curScope);
       opr = coList.get(i).eval(curScope);
-      if (opr == TokenKind.lessToken) v = v.evalLess(nextv);
-      else if (opr == TokenKind.greaterToken) v = v.evalGreater(nextv);
-      else if (opr == TokenKind.doubleEqualToken) v = v.evalEqual(nextv);
-      else if (opr == TokenKind.greaterEqualToken) v = v.evalGreaterEqual(nextv);
-      else if (opr == TokenKind.lessEqualToken) v = v.evalLessEqual(nextv);
-      else if (opr == TokenKind.notEqualToken) v = v.evalNotEqual(nextv);
+      if (opr.getStringValue() == TokenKind.lessToken) v = v.evalLess(nextv);
+      else if (opr.getStringValue() == TokenKind.greaterToken) v = v.evalGreater(nextv);
+      else if (opr.getStringValue() == TokenKind.doubleEqualToken) v = v.evalEqual(nextv);
+      else if (opr.getStringValue() == TokenKind.greaterEqualToken) v = v.evalGreaterEqual(nextv);
+      else if (opr.getStringValue() == TokenKind.lessEqualToken) v = v.evalLessEqual(nextv);
+      else if (opr.getStringValue() == TokenKind.notEqualToken) v = v.evalNotEqual(nextv);
 
       if (!v.getBoolValue("comp operand", this)) return v;
     }

@@ -57,4 +57,9 @@ class AspFactorOpr extends AspSyntax {
   public void prettyPrint() {
     prettyWrite(this.kind.toString());
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

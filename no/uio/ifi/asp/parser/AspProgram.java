@@ -39,6 +39,10 @@ public class AspProgram extends AspSyntax {
     }
   }
 
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 
   //   @Override
   //   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {

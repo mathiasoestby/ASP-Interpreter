@@ -25,4 +25,9 @@ class AspPassStmt extends AspSmallStmt{
    public void prettyPrint(){
      prettyWrite("pass");
    }
+
+   @Override
+   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+     return null;
+   }
 }

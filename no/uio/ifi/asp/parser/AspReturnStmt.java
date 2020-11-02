@@ -27,4 +27,9 @@ class AspReturnStmt extends AspSmallStmt {
      prettyWrite("return ");
      this.expr.prettyPrint();
    }
+
+   @Override
+   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+     return null;
+   }
 }

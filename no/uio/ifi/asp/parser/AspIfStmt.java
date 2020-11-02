@@ -67,4 +67,9 @@ public class AspIfStmt extends AspCompoundStmt {
     prettyWriteLn();
 
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

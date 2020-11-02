@@ -60,4 +60,9 @@ class AspDictDisplay extends AspAtom {
 
     prettyWrite("}");
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

@@ -33,4 +33,9 @@ class AspFactorPrefix extends AspSyntax {
   public void prettyPrint() {
     prettyWrite(String.valueOf(this.kind));
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

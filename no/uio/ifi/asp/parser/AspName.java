@@ -29,4 +29,9 @@ class AspName extends AspAtom {
   public void prettyPrint(){
     prettyWrite(this.navn);
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }

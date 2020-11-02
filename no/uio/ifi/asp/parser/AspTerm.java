@@ -37,4 +37,9 @@ class AspTerm extends AspSyntax {
 
     }
   }
+
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    return null;
+  }
 }
