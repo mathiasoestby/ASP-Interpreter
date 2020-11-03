@@ -31,9 +31,9 @@ class AspSubscription extends AspPrimarySuffix {
     this.expr.prettyPrint();
     prettyWrite("]");
   }
-  
+
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    return null;
+    return expr.eval(curScope);
   }
 }

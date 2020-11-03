@@ -35,6 +35,20 @@ public class RuntimeList extends RuntimeValue {
     }
 
     @Override
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+      if (v instanceof RuntimeIntegerValue) {
+        if (v.getIntValue("subscription int", where) >= 0 && v.getIntValue("subscription int", where) < this.listValue.size()) {
+          return this.listValue.get(Math.toIntExact(v.getIntValue("subscription int", where)));
+        } else {
+          runtimeError("Index " + String.valueOf(v.getIntValue("subscription int", where)) + " out of bounds for "+typeName()+"!", where);
+        }
+      }
+
+      runtimeError("Subscription '[...]' undefined for "+typeName()+"!", where);
+      return null;
+    }
+
+    @Override
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where){
       if (v instanceof RuntimeIntegerValue) {
         if (v.getIntValue("list multiply", where) < 0) {

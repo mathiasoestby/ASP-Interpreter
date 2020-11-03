@@ -9,9 +9,9 @@ import java.lang.Math;
 import java.util.HashMap;
 
 public class RuntimeDict extends RuntimeValue {
-    HashMap<RuntimeValue, RuntimeValue> dictValue;
+    HashMap<String, RuntimeValue> dictValue;
 
-    public RuntimeDict(HashMap<RuntimeValue, RuntimeValue> v) {
+    public RuntimeDict(HashMap<String, RuntimeValue> v) {
 	    this.dictValue = v;
     }
 
@@ -33,6 +33,19 @@ public class RuntimeDict extends RuntimeValue {
     @Override
     protected String typeName() {
 	    return "dictionary";
+    }
+
+    @Override
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+      if (v instanceof RuntimeStringValue) {
+        if (this.dictValue.containsKey(v.getStringValue("Dict key", where))) {
+          return this.dictValue.get(v.getStringValue("Dict key", where));
+        } else {
+          runtimeError("String value " + v.getStringValue("Dict key", where) + " is not a key in "+typeName()+"!", where);
+        }
+      }
+      runtimeError("Subscription '[...]' undefined for "+typeName()+"!", where);
+      return null;
     }
 
     @Override
