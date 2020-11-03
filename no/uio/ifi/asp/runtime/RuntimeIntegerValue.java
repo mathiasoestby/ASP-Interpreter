@@ -76,10 +76,12 @@ public class RuntimeIntegerValue extends RuntimeValue {
     @Override
     public RuntimeValue evalDivide(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
-        return new RuntimeIntegerValue(this.intValue / v.getIntValue("int divide", where));
+        Double newValue = Double.valueOf(this.intValue) / Double.valueOf(v.getIntValue("divide", where));
+        return new RuntimeFloatValue(newValue);
       }
       if (v instanceof RuntimeFloatValue) {
-        return new RuntimeFloatValue(this.intValue / v.getFloatValue("int divide", where));
+        Double newValue = Double.valueOf(this.intValue) / v.getFloatValue("divide", where);
+        return new RuntimeFloatValue(newValue);
       }
       runtimeError("Type error for Integer division /.", where);
       return null ;  // Required by the compiler!
@@ -100,10 +102,10 @@ public class RuntimeIntegerValue extends RuntimeValue {
     @Override
     public RuntimeValue evalModulo(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
-        return new RuntimeIntegerValue(Math.floorMod(this.intValue, v.getIntValue("int mod", where)));
+        return new RuntimeIntegerValue(Math.floorMod(this.intValue, v.getIntValue("int 2", where)));
       }
       if (v instanceof RuntimeFloatValue) {
-        return new RuntimeFloatValue((this.intValue - v.getFloatValue("int mod", where)) * Math.floor(this.intValue / v.getFloatValue("int mod", where)));
+        return new RuntimeFloatValue(this.intValue - v.getFloatValue("int 4", where) * Math.floor(this.intValue / v.getFloatValue("int 5", where)));
       }
       runtimeError("Type error for Integer mod %.", where);
       return null ;  // Required by the compiler!

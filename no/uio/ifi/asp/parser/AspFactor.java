@@ -78,9 +78,9 @@ class AspFactor extends AspSyntax {
       if (this.fpref.get(i) != null) {
         switch (this.fpref.get(i).kind) {
           case plusToken:
-            v = v.evalPositive(this.fpref.get(i)); break;
+            v2 = v2.evalPositive(this.fpref.get(i)); break;
           case minusToken:
-            v = v.evalNegate(this.fpref.get(i)); break;
+            v2 = v2.evalNegate(this.fpref.get(i)); break;
           default:
             Main.panic("Illegal factor operator: " + this.fpref.get(0).kind + "!");
         }
