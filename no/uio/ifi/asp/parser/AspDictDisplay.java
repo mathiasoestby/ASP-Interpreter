@@ -61,6 +61,8 @@ class AspDictDisplay extends AspAtom {
     prettyWrite("}");
   }
 
+  // oppretter en RuntimeDict. Vi lager en hashmap som vi sender til RuntimeDict-objektet.
+  // Vi må opprette en ny hashmap siden den vi ønsker å sende til RuntimeDict må basere seg på RuntimeValue-objekter. 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     HashMap<String, RuntimeValue> dict = new HashMap<String, RuntimeValue>();

@@ -49,7 +49,7 @@ class AspComparison extends AspSyntax {
     }
   }
 
-  @Override
+  @Override //Metoden oppretter en RuntimeValue v, så ser den på hvilken comparison token vi har, og velger den passende eval()-metoden for å evaluere sammenlikningen på v. 
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = termList.get(0).eval(curScope);
     RuntimeValue nextv;
@@ -59,12 +59,20 @@ class AspComparison extends AspSyntax {
       v = termList.get(i).eval(curScope);
       nextv = termList.get(i+1).eval(curScope);
       opr = coList.get(i);
-      if (opr.opr == TokenKind.lessToken) v = v.evalLess(nextv, this);
-      else if (opr.opr == TokenKind.greaterToken) v = v.evalGreater(nextv, this);
-      else if (opr.opr == TokenKind.doubleEqualToken) v = v.evalEqual(nextv, this);
-      else if (opr.opr == TokenKind.greaterEqualToken) v = v.evalGreaterEqual(nextv, this);
-      else if (opr.opr == TokenKind.lessEqualToken) v = v.evalLessEqual(nextv, this);
-      else if (opr.opr == TokenKind.notEqualToken) v = v.evalNotEqual(nextv, this);
+      switch (opr.opr) {
+        case lessToken:
+          v = v.evalLess(nextv, this); break;
+        case greaterToken:
+          v = v.evalGreater(nextv, this); break;
+        case doubleEqualToken:
+          v = v.evalEqual(nextv, this); break;
+        case greaterEqualToken:
+          v = v.evalGreaterEqual(nextv, this); break;
+        case lessEqualToken:
+          v = v.evalLessEqual(nextv, this); break;
+        case notEqualToken:
+          v = v.evalNotEqual(nextv, this);
+      }
 
       if (!v.getBoolValue("comp operand", this)) return v;
     }

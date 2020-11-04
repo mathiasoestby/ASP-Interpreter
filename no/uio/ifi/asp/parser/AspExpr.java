@@ -42,11 +42,11 @@ public class AspExpr extends AspExprStmt {
     }
   }
 
-  @Override
+  @Override // lager metoden som er vårt utgangspunkt for del 3. Går gjennom and-operatorene og returnerer verdien
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = andTests.get(0).eval(curScope);
     for (int i = 1; i < andTests.size(); i++ ) {
-      
+      // I tilfellet det faktisk skulle være and- og or-operatorer i uttrykket: Når vi har funnet en or-operand, betyr det at vi må ha evaluert en hel kjede med and-operatorer til å være true, og vi kan avslutte tidlig.
       if (v.getBoolValue("or operand", this)) return v;
       v = andTests.get(i).eval(curScope);
     }

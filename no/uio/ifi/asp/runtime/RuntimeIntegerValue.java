@@ -19,8 +19,6 @@ public class RuntimeIntegerValue extends RuntimeValue {
       return String.valueOf(this.intValue);
     }
 
-    //Vi skal tydeligvis bruke de metodene vi eventuelt trenger fra RuntimeValue, så det er sikkert noen flere som
-    //må implementeres her. Jeg vet bare ikke hvilke ennå
     @Override
     public long getIntValue(String what, AspSyntax where) {
       return intValue;
@@ -36,7 +34,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 	    return "integer";
     }
 
-
+    // ------------------------------------------- implementerer diverse variasjoner av metoder som skal brukes for å evaluere ints på forskjellige måter
     @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
@@ -46,7 +44,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(this.intValue + v.getFloatValue("int add", where));
       }
       runtimeError("Type error for Integer addition +.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(this.intValue - v.getFloatValue("int subtract", where));
       }
       runtimeError("Type error for Integer subtraction -.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -70,7 +68,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(this.intValue * v.getFloatValue("int multiply", where));
       }
       runtimeError("Type error for Integer multiplication *.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -84,7 +82,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(newValue);
       }
       runtimeError("Type error for Integer division /.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -96,7 +94,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(Math.floor(this.intValue / v.getFloatValue("int integer divide", where)));
       }
       runtimeError("Type error for Integer division //.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -108,7 +106,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeFloatValue(this.intValue - v.getFloatValue("int 4", where) * Math.floor(this.intValue / v.getFloatValue("int 5", where)));
       }
       runtimeError("Type error for Integer mod %.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     public RuntimeValue evalPositive(AspSyntax where) {
@@ -123,7 +121,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.intValue == 0);  // Required by the compiler!
+      return new RuntimeBoolValue(this.intValue == 0);
     }
 
     @Override
@@ -138,7 +136,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(this.intValue == (v.getFloatValue("Integer equal", where)));
       }
       runtimeError("Type error for Integer comparison ==.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     @Override
@@ -153,7 +151,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(!(this.intValue == (v.getFloatValue("Integer not equal", where))));
       }
       runtimeError("Type error for Integer comparison !=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     @Override
@@ -165,7 +163,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(this.intValue > (v.getFloatValue("Integer greater", where)));
       }
       runtimeError("Type error for Integer comparison >.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalGreaterEqual(RuntimeValue v, AspSyntax where) {
@@ -176,7 +174,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(this.intValue >= (v.getFloatValue("Integer greater equal", where)));
       }
       runtimeError("Type error for Integer comparison >=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalLess(RuntimeValue v, AspSyntax where) {
@@ -187,7 +185,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(this.intValue < (v.getFloatValue("Integer less", where)));
       }
       runtimeError("Type error for Integer comparison <.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalLessEqual(RuntimeValue v, AspSyntax where) {
@@ -198,7 +196,7 @@ public class RuntimeIntegerValue extends RuntimeValue {
         return new RuntimeBoolValue(this.intValue <= (v.getFloatValue("Integer less equal", where)));
       }
       runtimeError("Type error for Integer comparison <=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
 

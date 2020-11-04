@@ -54,7 +54,7 @@ class AspListDisplay extends AspAtom {
     prettyWrite("]");
   }
 
-  @Override
+  @Override //Metoden lager en RuntimeList, og gir den en ny liste med RuntimeValue-verdier basert på verdiene i den originale lista.
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     ArrayList<RuntimeValue> list = new ArrayList<RuntimeValue>();
 

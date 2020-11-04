@@ -57,7 +57,7 @@ class AspFactor extends AspSyntax {
   }
 
 
-  @Override
+  @Override //Metode som evaluerer faktorer. Den første if-testen og switchen evaluerer en mulig rett linje i jernbanediagrammet uten noen loops med faktor-operatorer.
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = this.prim.get(0).eval(curScope);
     if (this.fpref.get(0) != null) {
@@ -67,14 +67,14 @@ class AspFactor extends AspSyntax {
         case minusToken:
           v = v.evalNegate(this.fpref.get(0)); break;
         default:
-          Main.panic("Illegal factor operator: " + this.fpref.get(0).kind + "!");
+          Main.panic("Illegal factor prefix: " + this.fpref.get(0).kind + "!");
       }
     }
-    System.out.println(v);
+    // Hvis det er en faktor-operator, vil den først evaluere en ny v2 ved å kjøre koden over på nytt, så vil den utføre en faktor-operasjon på v og v2.
+    // Dette gjentar til den mulige kjeden av faktorer er ferdig evaluert. I et annet liv kunne hele koden vært i én for-løkke, men det var lettere å skrive det ut slik nå.
     for (int i = 1; i < this.prim.size(); i++) {
       RuntimeValue v2 = this.prim.get(i).eval(curScope);
 
-      System.out.println(v2);
       if (this.fpref.get(i) != null) {
         switch (this.fpref.get(i).kind) {
           case plusToken:

@@ -30,6 +30,7 @@ public class RuntimeStringValue extends RuntimeValue {
   public boolean getBoolValue(String what, AspSyntax where) {
     return !this.stringValue.isEmpty();
   }
+  // ------------------------------------------- implementerer diverse variasjoner av metoder som skal brukes for å evaluere Strings på forskjellige måter
 
   @Override
   public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
@@ -37,7 +38,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeStringValue(this.stringValue + v.getStringValue("string add", where));
     }
     runtimeError("Type error for string concatination.", where);
-    return null ;  // Required by the compiler!
+    return null ;
   }
 
   @Override
@@ -64,7 +65,7 @@ public class RuntimeStringValue extends RuntimeValue {
   @Override
   public RuntimeValue evalNot(AspSyntax where) {
     return new RuntimeBoolValue(this.stringValue.isEmpty());
-    // Required by the compiler!
+
   }
 
   @Override
@@ -76,7 +77,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(this.stringValue.equals(v.getStringValue("string equal", where)));
     }
     runtimeError("Type error for string comparison ==.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 
   @Override
@@ -88,7 +89,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(!(this.stringValue.equals(v.getStringValue("string not equal", where))));
     }
     runtimeError("Type error for string comparison !=.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 
   @Override
@@ -97,7 +98,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string less", where)) < 0);
     }
     runtimeError("Type error for string comparison <.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 
   @Override
@@ -106,7 +107,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string lessEqual", where)) <= 0);
     }
     runtimeError("Type error for string comparison <=.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 
   @Override
@@ -115,7 +116,7 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string Greater", where)) > 0);
     }
     runtimeError("Type error for string comparison >.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 
   @Override
@@ -124,6 +125,6 @@ public class RuntimeStringValue extends RuntimeValue {
       return new RuntimeBoolValue(this.stringValue.compareTo(v.getStringValue("string not equal", where)) >= 0);
     }
     runtimeError("Type error for string comparison >=.", where);
-    return null;  // Required by the compiler!
+    return null;
   }
 }

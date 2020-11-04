@@ -35,7 +35,7 @@ public class RuntimeDict extends RuntimeValue {
 	    return "dictionary";
     }
 
-    @Override
+    @Override //Metoden henter ut riktig nøkkelverdi i ordboka. Den kaller en feilmelding hvis nøkkelen ikke finnes i hashmappet, eller hvis nøkkelen ikke er en tekststreng.
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeStringValue) {
         if (this.dictValue.containsKey(v.getStringValue("Dict key", where))) {
@@ -50,7 +50,7 @@ public class RuntimeDict extends RuntimeValue {
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.dictValue.size() == 0);  // Required by the compiler!
+      return new RuntimeBoolValue(this.dictValue.size() == 0);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class RuntimeDict extends RuntimeValue {
         return new RuntimeBoolValue(this.dictValue.size() == 0);
       }
       runtimeError("Type error for Dict comparison ==.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     @Override
@@ -68,7 +68,6 @@ public class RuntimeDict extends RuntimeValue {
         return new RuntimeBoolValue(!(this.dictValue.size() == 0));
       }
       runtimeError("Type error for Dict comparison !=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
-
 }

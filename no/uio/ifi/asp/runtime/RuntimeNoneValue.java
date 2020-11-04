@@ -11,8 +11,8 @@ public class RuntimeNoneValue extends RuntimeValue {
 	return "None";
     }
 
-
-    @Override 
+    // ------------------------------------------- implementerer noen forskjellige metoder som skal brukes for å evaluere None på forskjellige måter
+    @Override
     protected String showInfo(ArrayList<RuntimeValue> inUse, boolean toPrint) {
 	return "None";
     }
