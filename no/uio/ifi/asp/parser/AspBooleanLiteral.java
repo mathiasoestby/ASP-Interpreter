@@ -34,7 +34,7 @@ class AspBooleanLiteral extends AspAtom {
     prettyWrite(String.valueOf(this.bool));
   }
 
-  @Override
+  @Override 
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     return new RuntimeBoolValue(bool);
   }

@@ -129,8 +129,12 @@ public class Scanner {
         while (digitOrPoint(character) && pos < line.length()){ //går gjennom tegnene i linja
           if ((character == '0') && (buildNumber == "")){ //lager sjekk som stopper løkka hvis første tegn er en 0
             buildNumber += character;
-            pos++;
-            break;
+            if (pos+1 < line.length()) { //unntaket er hvis det er et flyttall.
+              if (line.charAt(pos+1) != '.') {
+                pos++;
+                break;
+              }
+            }
           }
 
           buildNumber += character; //hvis ikke, legg til tegn og oppdater pos

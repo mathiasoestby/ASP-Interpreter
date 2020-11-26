@@ -35,6 +35,7 @@ class AspNotTest extends AspSyntax {
     this.comp.prettyPrint();
   }
 
+  @Override // Metoden returnerer et passende RuntimeValue-objekt avhengig av hva AspComparison.eval() returnerer. Metoden tar også og sjekker om den skal invertere en sannhetsverdi
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = comp.eval(curScope);
 

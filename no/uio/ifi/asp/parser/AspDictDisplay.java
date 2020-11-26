@@ -61,12 +61,14 @@ class AspDictDisplay extends AspAtom {
     prettyWrite("}");
   }
 
+  // oppretter en RuntimeDict. Vi lager en hashmap som vi sender til RuntimeDict-objektet.
+  // Vi må opprette en ny hashmap siden den vi ønsker å sende til RuntimeDict må basere seg på RuntimeValue-objekter. 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    HashMap<RuntimeValue, RuntimeValue> dict = new HashMap<RuntimeValue, RuntimeValue>();
+    HashMap<String, RuntimeValue> dict = new HashMap<String, RuntimeValue>();
 
     for (int i = 0; i < aslList.size(); i++ ) {
-      dict.put(aslList.get(i).eval(curScope), exprList.get(i).eval(curScope));
+      dict.put(aslList.get(i).tekst, exprList.get(i).eval(curScope));
     }
     return new RuntimeDict(dict);
   }

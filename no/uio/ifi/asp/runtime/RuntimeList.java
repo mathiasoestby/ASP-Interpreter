@@ -19,11 +19,6 @@ public class RuntimeList extends RuntimeValue {
       return String.valueOf(this.listValue);
     }
 
-    // @Override
-    // public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where) {
-    //   return this.listValue;
-    // }
-
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
       return !(this.listValue.size() == 0);
@@ -34,6 +29,22 @@ public class RuntimeList extends RuntimeValue {
 	    return "list";
     }
 
+
+    @Override //Metoden henter ut riktig element i lista. Den kaller en feilmelding hvis indeksen er utenfor listas lengde, eller hvis indeksen ikke er et tall.
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+      if (v instanceof RuntimeIntegerValue) {
+        if (v.getIntValue("subscription int", where) >= 0 && v.getIntValue("subscription int", where) < this.listValue.size()) {
+          return this.listValue.get(Math.toIntExact(v.getIntValue("subscription int", where)));
+        } else {
+          runtimeError("Index " + String.valueOf(v.getIntValue("subscription int", where)) + " out of bounds for "+typeName()+"!", where);
+        }
+      }
+
+      runtimeError("Subscription '[...]' undefined for "+typeName()+"!", where);
+      return null;
+    }
+
+    // ------------------------------------------- implementerer diverse variasjoner av metoder som skal brukes for å evaluere lister på forskjellige måter
     @Override
     public RuntimeValue evalMultiply(RuntimeValue v, AspSyntax where){
       if (v instanceof RuntimeIntegerValue) {
@@ -54,7 +65,7 @@ public class RuntimeList extends RuntimeValue {
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.listValue.size() == 0);  // Required by the compiler!
+      return new RuntimeBoolValue(this.listValue.size() == 0);  
     }
 
     @Override
@@ -63,7 +74,7 @@ public class RuntimeList extends RuntimeValue {
         return new RuntimeBoolValue(this.listValue.size() == 0);
       }
       runtimeError("Type error for List comparison ==.", where);
-      return null;  // Required by the compiler!
+      return null;  
     }
 
     @Override
@@ -72,7 +83,7 @@ public class RuntimeList extends RuntimeValue {
         return new RuntimeBoolValue(!(this.listValue.size() == 0));
       }
       runtimeError("Type error for List comparison !=.", where);
-      return null;  // Required by the compiler!
+      return null;  
     }
 
 }

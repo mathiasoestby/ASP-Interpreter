@@ -9,9 +9,9 @@ import java.lang.Math;
 import java.util.HashMap;
 
 public class RuntimeDict extends RuntimeValue {
-    HashMap<RuntimeValue, RuntimeValue> dictValue;
+    HashMap<String, RuntimeValue> dictValue;
 
-    public RuntimeDict(HashMap<RuntimeValue, RuntimeValue> v) {
+    public RuntimeDict(HashMap<String, RuntimeValue> v) {
 	    this.dictValue = v;
     }
 
@@ -35,9 +35,22 @@ public class RuntimeDict extends RuntimeValue {
 	    return "dictionary";
     }
 
+    @Override //Metoden henter ut riktig nøkkelverdi i ordboka. Den kaller en feilmelding hvis nøkkelen ikke finnes i hashmappet, eller hvis nøkkelen ikke er en tekststreng.
+    public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+      if (v instanceof RuntimeStringValue) {
+        if (this.dictValue.containsKey(v.getStringValue("Dict key", where))) {
+          return this.dictValue.get(v.getStringValue("Dict key", where));
+        } else {
+          runtimeError("String value " + v.getStringValue("Dict key", where) + " is not a key in "+typeName()+"!", where);
+        }
+      }
+      runtimeError("Subscription '[...]' undefined for "+typeName()+"!", where);
+      return null;
+    }
+
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.dictValue.size() == 0);  // Required by the compiler!
+      return new RuntimeBoolValue(this.dictValue.size() == 0);
     }
 
     @Override
@@ -46,7 +59,7 @@ public class RuntimeDict extends RuntimeValue {
         return new RuntimeBoolValue(this.dictValue.size() == 0);
       }
       runtimeError("Type error for Dict comparison ==.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     @Override
@@ -55,7 +68,6 @@ public class RuntimeDict extends RuntimeValue {
         return new RuntimeBoolValue(!(this.dictValue.size() == 0));
       }
       runtimeError("Type error for Dict comparison !=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
-
 }

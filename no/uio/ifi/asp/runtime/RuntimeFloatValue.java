@@ -19,8 +19,6 @@ public class RuntimeFloatValue extends RuntimeValue {
       return String.valueOf(this.floatValue);
     }
 
-    //Vi skal tydeligvis bruke de metodene vi eventuelt trenger fra RuntimeValue, så det er sikkert noen flere som
-    //må implementeres her. Jeg vet bare ikke hvilke ennå
     @Override
     public double getFloatValue(String what, AspSyntax where) {
       return this.floatValue;
@@ -36,7 +34,7 @@ public class RuntimeFloatValue extends RuntimeValue {
 	    return "float";
     }
 
-
+    // ------------------------------------------- implementerer diverse variasjoner av metoder som skal brukes for å evaluere floats på forskjellige måter
     @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
@@ -46,7 +44,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeFloatValue(this.floatValue + v.getFloatValue("float add", where));
       }
       runtimeError("Type error for Float addition +.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeFloatValue(this.floatValue - v.getFloatValue("float subtract", where));
       }
       runtimeError("Type error for Float subtraction -.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -70,7 +68,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeFloatValue(this.floatValue * v.getFloatValue("float multiply", where));
       }
       runtimeError("Type error for Float multiplication *.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -82,7 +80,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeFloatValue(this.floatValue / v.getFloatValue("float divide", where));
       }
       runtimeError("Type error for Float divison /.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
@@ -94,19 +92,19 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeFloatValue(Math.floor(this.floatValue / v.getFloatValue("float intdivide", where)));
       }
       runtimeError("Type error for Float division //.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     @Override
     public RuntimeValue evalModulo(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
-        return new RuntimeFloatValue((this.floatValue - v.getIntValue("float mod", where)) * Math.floor(this.floatValue / v.getIntValue("float mod", where)));
+        return new RuntimeFloatValue(this.floatValue - v.getIntValue("float mod", where) * Math.floor(this.floatValue / v.getIntValue("float mod", where)));
       }
       if (v instanceof RuntimeFloatValue) {
-        return new RuntimeFloatValue((this.floatValue - v.getFloatValue("float mod", where)) * Math.floor(this.floatValue / v.getFloatValue("float mod", where)));
+        return new RuntimeFloatValue(this.floatValue - v.getFloatValue("float mod", where) * Math.floor(this.floatValue / v.getFloatValue("float mod", where)));
       }
       runtimeError("Type error for Float mod %.", where);
-      return null ;  // Required by the compiler!
+      return null ;
     }
 
     public RuntimeValue evalPositive(AspSyntax where) {
@@ -121,7 +119,7 @@ public class RuntimeFloatValue extends RuntimeValue {
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.floatValue == 0);  // Required by the compiler!
+      return new RuntimeBoolValue(this.floatValue == 0);
     }
 
     @Override
@@ -136,7 +134,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(this.floatValue == (v.getFloatValue("float equal", where)));
       }
       runtimeError("Type error for Float comparison ==.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     @Override
@@ -151,10 +149,9 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(!(this.floatValue == (v.getFloatValue("float not equal", where))));
       }
       runtimeError("Type error for Float comparison !=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
-    // !! Dette må gjøres
     @Override
     public RuntimeValue evalGreater(RuntimeValue v, AspSyntax where) {
       if (v instanceof RuntimeIntegerValue) {
@@ -164,7 +161,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(this.floatValue > (v.getFloatValue("float greater", where)));
       }
       runtimeError("Type error for Float comparison >.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalGreaterEqual(RuntimeValue v, AspSyntax where) {
@@ -175,7 +172,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(this.floatValue >= (v.getFloatValue("float greater equal", where)));
       }
       runtimeError("Type error for Float comparison >=.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalLess(RuntimeValue v, AspSyntax where) {
@@ -186,7 +183,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(this.floatValue < (v.getFloatValue("float less", where)));
       }
       runtimeError("Type error for Float comparison <.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
     public RuntimeValue evalLessEqual(RuntimeValue v, AspSyntax where) {
@@ -197,7 +194,7 @@ public class RuntimeFloatValue extends RuntimeValue {
         return new RuntimeBoolValue(this.floatValue <= (v.getFloatValue("float greater equal", where)));
       }
       runtimeError("Type error for Float comparison >.", where);
-      return null;  // Required by the compiler!
+      return null;
     }
 
 
