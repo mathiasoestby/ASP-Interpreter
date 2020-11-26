@@ -127,4 +127,19 @@ public class RuntimeStringValue extends RuntimeValue {
     runtimeError("Type error for string comparison >=.", where);
     return null;
   }
+
+  public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where) {
+    if (v instanceof RuntimeIntegerValue) {
+      if (v.getIntValue("subscription int", where) >= 0 && v.getIntValue("subscription int", where) < this.stringValue.length()) {
+        return new RuntimeStringValue(String.valueOf(this.stringValue.charAt((int)v.getIntValue("subscription int", where))));
+      } else {
+        runtimeError("Index " + String.valueOf(v.getIntValue("subscription int", where)) + " out of bounds for "+typeName()+"!", where);
+      }
+    }
+
+    runtimeError("Subscription '[...]' undefined for "+typeName()+"!", where);
+    return null;  // Required by the compiler!
+  }
+
+
 }
