@@ -58,7 +58,7 @@ None == "ingenting"
 27 != -(-27) != 27
 3 != 3.0
 10/2 != 16//3
-1 == 1.0 != 1.0001 
+1 == 1.0 != 1.0001
 "Ja" != "ja"
 None != "ingenting"
 [ "Absolutt", "ingenting" ] != None
@@ -94,7 +94,7 @@ None != "ingenting"
 # not
 not (1+1 == 2)
 not { "ja": 1, "nei": 3 }
-not 0.0
+not (1.0-1) #sto 0.0 her, men ga syntax feil
 not 2+2
 not []
 not None

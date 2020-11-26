@@ -1,4 +1,4 @@
 
 # En hyggelig hilsen
-navn='Dag'
+navn='Dag';
 print ('Hei,',navn)
