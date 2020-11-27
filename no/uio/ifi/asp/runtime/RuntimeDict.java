@@ -20,11 +20,6 @@ public class RuntimeDict extends RuntimeValue {
       return String.valueOf(this.dictValue);
     }
 
-    // @Override
-    // public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where) {
-    //   return this.listValue;
-    // }
-
     @Override
     public boolean getBoolValue(String what, AspSyntax where) {
       return !(this.dictValue.size() == 0);
@@ -69,5 +64,16 @@ public class RuntimeDict extends RuntimeValue {
       }
       runtimeError("Type error for Dict comparison !=.", where);
       return null;
+    }
+
+
+    @Override
+    public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
+      if (inx instanceof RuntimeStringValue) {
+        this.dictValue.put(inx.getStringValue("Dict assignment", where), val);
+        return;
+      }
+      runtimeError("Type-error for key in Dictionary assignment", where);
+      return;
     }
 }

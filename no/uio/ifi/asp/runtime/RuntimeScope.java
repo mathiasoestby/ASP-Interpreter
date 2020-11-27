@@ -29,9 +29,9 @@ public class RuntimeScope {
   public RuntimeValue find(String id, AspSyntax where) {
     RuntimeValue v = decls.get(id);
     if (v != null)
-    return v;
+      return v;
     if (outer != null)
-    return outer.find(id, where);
+      return outer.find(id, where);
 
     RuntimeValue.runtimeError("Name " + id + " not defined!", where);
     return null;  // Required by the compiler.

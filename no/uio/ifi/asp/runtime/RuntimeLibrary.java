@@ -11,12 +11,15 @@ public class RuntimeLibrary extends RuntimeScope {
 
     public RuntimeLibrary() {
 	//-- Must be changed in part 4:
+  // inneholder de predefinerte funksjonene
+
+  
     }
 
 
-    private void checkNumParams(ArrayList<RuntimeValue> actArgs, 
+    private void checkNumParams(ArrayList<RuntimeValue> actArgs,
 				int nCorrect, String id, AspSyntax where) {
-	if (actArgs.size() != nCorrect)
-	    RuntimeValue.runtimeError("Wrong number of parameters to "+id+"!",where);
+	      if (actArgs.size() != nCorrect)
+	        RuntimeValue.runtimeError("Wrong number of parameters to "+id+"!",where);
     }
 }

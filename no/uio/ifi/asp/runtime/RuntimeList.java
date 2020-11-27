@@ -65,7 +65,7 @@ public class RuntimeList extends RuntimeValue {
 
     @Override
     public RuntimeValue evalNot(AspSyntax where) {
-      return new RuntimeBoolValue(this.listValue.size() == 0);  
+      return new RuntimeBoolValue(this.listValue.size() == 0);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class RuntimeList extends RuntimeValue {
         return new RuntimeBoolValue(this.listValue.size() == 0);
       }
       runtimeError("Type error for List comparison ==.", where);
-      return null;  
+      return null;
     }
 
     @Override
@@ -83,7 +83,22 @@ public class RuntimeList extends RuntimeValue {
         return new RuntimeBoolValue(!(this.listValue.size() == 0));
       }
       runtimeError("Type error for List comparison !=.", where);
-      return null;  
+      return null;
+    }
+
+
+    @Override
+    public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
+      if (inx instanceof RuntimeIntegerValue) {
+        try {
+          this.listValue.add((int) inx.getIntValue("List assignment", where), val);
+        } catch(IndexOutOfBoundsException ie ) {
+          runtimeError("Index out of range in assignment of List with size <" + this.listValue.size() + ">.", where);
+        }
+        return;
+      }
+      runtimeError("Type-error for index in List assignment", where);
+      return;
     }
 
 }
