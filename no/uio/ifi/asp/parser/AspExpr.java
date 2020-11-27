@@ -50,6 +50,7 @@ public class AspExpr extends AspExprStmt {
       if (v.getBoolValue("or operand", this)) return v;
       v = andTests.get(i).eval(curScope);
     }
+    trace(v.showInfo());
     return v;
   }
 }

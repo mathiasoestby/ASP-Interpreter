@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
+import no.uio.ifi.asp.main.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 
@@ -50,6 +51,9 @@ class AspSmallStmtList extends AspStmt {
    }
    @Override
    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+     for (AspSmallStmt ass : assList) {
+           ass.eval(curScope);
+         }
      return null;
    }
 }
