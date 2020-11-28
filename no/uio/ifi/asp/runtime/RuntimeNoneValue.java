@@ -6,6 +6,8 @@ import no.uio.ifi.asp.main.*;
 import no.uio.ifi.asp.parser.AspSyntax;
 
 public class RuntimeNoneValue extends RuntimeValue {
+
+
     @Override
     protected String typeName() {
 	return "None";

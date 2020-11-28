@@ -5,8 +5,8 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 
 
-class AspName extends AspAtom {
-  String navn;
+public class AspName extends AspAtom {
+  public String navn;
   // int curLineNum;
 
   AspName(int curLineNum){

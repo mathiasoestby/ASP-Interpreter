@@ -20,6 +20,11 @@ public class RuntimeList extends RuntimeValue {
     }
 
     @Override
+    public ArrayList<RuntimeValue> getListValue(String what, AspSyntax where){
+      return this.listValue;
+    }
+
+    @Override
     public boolean getBoolValue(String what, AspSyntax where) {
       return !(this.listValue.size() == 0);
     }

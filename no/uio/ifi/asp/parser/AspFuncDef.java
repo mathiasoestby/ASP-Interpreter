@@ -8,9 +8,9 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFuncDef extends AspCompoundStmt{
-  AspName defName;
-  ArrayList<AspName> argsName = new ArrayList<>();
-  AspSuite suite;
+  public AspName defName;
+  public ArrayList<AspName> argsName = new ArrayList<AspName>();
+  public AspSuite suite;
 
   AspFuncDef(int n) {
     super(n);
@@ -46,7 +46,7 @@ public class AspFuncDef extends AspCompoundStmt{
 
   @Override
   public void prettyPrint(){
-    prettyWrite("def ");
+    prettyWrite("def");
     this.defName.prettyPrint();
     prettyWrite("(");
 
@@ -63,9 +63,7 @@ public class AspFuncDef extends AspCompoundStmt{
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    RuntimeValue evName = this.defName.eval();
-    curScope.assign(evName.getStringValue(evName.typeName(), this.argsName),
-      new RuntimeFunc(evName.getStringValue(evName.typeName(), this), this.suite, this.argsName, curScope);
+    curScope.assign(defName.navn, new RuntimeFunc(this, curScope));
     return null;
   }
 }
