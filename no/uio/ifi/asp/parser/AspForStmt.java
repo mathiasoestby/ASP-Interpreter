@@ -50,6 +50,15 @@ public class AspForStmt extends AspCompoundStmt {
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue ex = this.expr.eval(curScope);
+    if (ex instanceof RuntimeList){
+      for (int i = 0; i < ((RuntimeList) ex).listValue.size(); i++) {
+        curScope.assign(this.name.navn, ((RuntimeList) ex).listValue.get(i));
+        this.suite.eval(curScope);
+      }
+      return null;
+    }
+    RuntimeValue.runtimeError("For loop range is not a list!", this);
     return null;
   }
 }

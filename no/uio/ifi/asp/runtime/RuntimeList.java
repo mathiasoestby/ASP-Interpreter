@@ -8,7 +8,7 @@ import no.uio.ifi.asp.parser.AspSyntax;
 import java.lang.Math;
 
 public class RuntimeList extends RuntimeValue {
-    ArrayList<RuntimeValue> listValue;
+    public ArrayList<RuntimeValue> listValue;
 
     public RuntimeList(ArrayList<RuntimeValue> v) {
 	    this.listValue = v;
