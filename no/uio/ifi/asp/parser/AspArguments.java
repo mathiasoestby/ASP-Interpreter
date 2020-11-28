@@ -58,6 +58,7 @@ public class AspArguments extends AspPrimarySuffix {
     //
     // for (AspSyntax as : this.exprList) {
     //   expr.add(as.eval(curScope));
+    //   System.out.println(as.eval(curScope).showInfo());
     // }
     //
     // return new RuntimeList(expr);

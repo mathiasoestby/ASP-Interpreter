@@ -70,6 +70,16 @@ public class AspIfStmt extends AspCompoundStmt {
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    for (int i = 0; i < this.exprList.size(); i++){
+      if (this.exprList.get(i).eval(curScope).getBoolValue("if test", this)) {
+        this.ifSuiteList.get(i).eval(curScope);
+        return null;
+      }
+    }
+    if (elseSuite != null){
+      elseSuite.eval(curScope);
+    }
     return null;
+
   }
 }

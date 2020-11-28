@@ -161,7 +161,7 @@ public class RuntimeLibrary extends RuntimeScope {
               ArrayList<RuntimeValue> list = new ArrayList<RuntimeValue>();
 
               for (int i = (int) actualParams.get(0).getIntValue("range", where);
-                   i - (int)actualParams.get(1).getIntValue("range", where) > 0;
+                   i < (int)actualParams.get(1).getIntValue("range", where);
                    i++)
               {
                 list.add(new RuntimeIntegerValue(i));
