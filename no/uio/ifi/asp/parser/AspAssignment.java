@@ -50,17 +50,22 @@ class AspAssignment extends AspSmallStmt{
 
    @Override
    public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+     RuntimeValue exprEval = this.expr.eval(curScope);
+     if (exprEval instanceof RuntimeName) {
+       exprEval = curScope.find(exprEval.showInfo(), this);
+     }
+
      if (asList.isEmpty()) {
-       curScope.assign(this.name.eval(curScope).getStringValue("assignment", this), this.expr.eval(curScope));
+
+       curScope.assign(this.name.eval(curScope).showInfo(), exprEval);
 
      } else {
        RuntimeValue list  = curScope.find(this.name.eval(curScope).getStringValue("assignment", this), this);
        for (int i = 0; i < this.asList.size() - 1; ) {
-          list = list.evalSubscription(this.asList.get(i).eval(curScope), this);
+         list = list.evalSubscription(this.asList.get(i).eval(curScope), this);
        }
-       list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), this.expr.eval(curScope), this);
+       list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), exprEval, this);
      }
-
      return new RuntimeNoneValue();
    }
 }
