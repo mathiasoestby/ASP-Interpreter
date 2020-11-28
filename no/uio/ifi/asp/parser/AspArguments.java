@@ -7,7 +7,7 @@ import no.uio.ifi.asp.runtime.*;
 import no.uio.ifi.asp.scanner.*;
 
 
-class AspArguments extends AspPrimarySuffix {
+public class AspArguments extends AspPrimarySuffix {
   ArrayList<AspExpr> exprList = new ArrayList<>();
 
   AspArguments(int n){
@@ -54,12 +54,14 @@ class AspArguments extends AspPrimarySuffix {
   }
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    ArrayList<RuntimeValue> expr = new ArrayList<>();
+    // ArrayList<RuntimeValue> expr = new ArrayList<>();
+    //
+    // for (AspSyntax as : this.exprList) {
+    //   expr.add(as.eval(curScope));
+    // }
+    //
+    // return new RuntimeList(expr);
 
-    for (AspSyntax as : this.exprList) {
-      expr.add(as.eval(curScope));
-    }
-
-    return new RuntimeList(expr);
+    return null;
   }
 }

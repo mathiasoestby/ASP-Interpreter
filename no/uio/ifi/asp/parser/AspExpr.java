@@ -15,7 +15,6 @@ public class AspExpr extends AspExprStmt {
     super(n);
   }
 
-
   public static AspExpr parse(Scanner s) {
     enterParser("expr");
 
@@ -49,12 +48,6 @@ public class AspExpr extends AspExprStmt {
       // I tilfellet det faktisk skulle være and- og or-operatorer i uttrykket: Når vi har funnet en or-operand, betyr det at vi må ha evaluert en hel kjede med and-operatorer til å være true, og vi kan avslutte tidlig.
       if (v.getBoolValue("or operand", this)) return v;
       v = andTests.get(i).eval(curScope);
-    }
-    if (v instanceof RuntimeName){
-      System.out.println(curScope.find(v.showInfo(), this));
-      trace(curScope.find(v.showInfo(), this).showInfo());
-    } else {
-      trace(v.showInfo());
     }
     return v;
   }

@@ -55,6 +55,13 @@ public class AspSuite extends AspSyntax {
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    if (this.ssl != null){
+      this.ssl.eval(curScope);
+    } else {
+      for (AspSyntax val : this.stmtList) {
+        val.eval(curScope);
+      }
+    }
     return null;
   }
 }

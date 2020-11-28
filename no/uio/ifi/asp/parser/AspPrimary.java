@@ -47,7 +47,14 @@ class AspPrimary extends AspSyntax {
       RuntimeValue aps = this.apsList.get(i).eval(curScope);
 
       if (this.apsList.get(i) instanceof AspArguments) {
-        ArrayList<RuntimeValue> argsList = this.apsList.get(i).eval(curScope).getListValue("arguments", this);
+        ArrayList<RuntimeValue> argsList = new ArrayList<>();
+
+        for (AspSyntax as : ((AspArguments) this.apsList.get(i)).exprList) {
+          argsList.add(as.eval(curScope));
+        }
+        
+        // ArrayList<AspSyntax> list = ((AspArguments) this.apsList.get(i)).exprList;
+        // ArrayList<RuntimeValue> argsList = ;
         v = curScope.find(v.showInfo(), this);
         v = v.evalFuncCall(argsList, this);
 
