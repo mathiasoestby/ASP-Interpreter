@@ -41,11 +41,21 @@ class AspPrimary extends AspSyntax {
   @Override //Henter ut atom-et sin evaluerte verdi, og sjekker etter potensielle primary suffixer. For øyeblikket tar den bare høyde for subscriptions.
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = this.a.eval(curScope);
+    ArrayList<RuntimeValue> rtvList = new ArrayList<>();
+
     for (int i = 0; i < this.apsList.size(); i++) {
       RuntimeValue aps = this.apsList.get(i).eval(curScope);
-      v = v.evalSubscription(aps, this);
+
+      if (this.apsList.get(i) instanceof AspArguments) {
+        ArrayList<RuntimeValue> argsList = this.apsList.get(i).eval(curScope).listValue;
+        v = curScope.find(v.showInfo());
+        v = v.evalFuncCall(argsList, this);
+
+      } else {
+        v = v.evalSubscription(aps, this);
+      }
     }
+
     return v;
   }
-
 }
