@@ -54,6 +54,12 @@ class AspArguments extends AspPrimarySuffix {
   }
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-    return null;
+    ArrayList<RuntimeValue> expr = new ArrayList<>();
+
+    for (AspSyntax as : this.exprList) {
+      expr.add(as.eval(curScope));
+    }
+
+    return new RuntimeList(expr);
   }
 }
