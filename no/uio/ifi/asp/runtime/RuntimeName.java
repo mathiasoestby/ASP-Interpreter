@@ -22,6 +22,11 @@ public class RuntimeName extends RuntimeValue {
   }
 
   @Override
+  public String getStringValue(String what , AspSyntax where){
+    return this.name;
+  }
+
+  @Override
   public boolean getBoolValue(String what, AspSyntax where) {
     return !this.name.isEmpty();
   }
