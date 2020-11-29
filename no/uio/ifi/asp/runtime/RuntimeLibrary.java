@@ -140,6 +140,7 @@ public class RuntimeLibrary extends RuntimeScope {
                 AspSyntax where) {
                   String build = "";
                   for (RuntimeValue val: actualParams) {
+                    if (! build.equals("")) build += " ";
                     build += val.showInfo();
                   }
                   System.out.println(build);
