@@ -41,7 +41,7 @@ public class AspExpr extends AspExprStmt {
     }
   }
 
-  @Override // lager metoden som er vårt utgangspunkt for del 3. Går gjennom and-operatorene og returnerer verdien
+  @Override // lager metoden som er  vårt utgangspunkt for del 3. Går gjennom and-operatorene og returnerer verdien
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = andTests.get(0).eval(curScope);
     for (int i = 1; i < andTests.size(); i++ ) {

@@ -49,14 +49,14 @@ class AspComparison extends AspSyntax {
     }
   }
 
-  @Override //Metoden oppretter en RuntimeValue v, så ser den på hvilken comparison token vi har, og velger den passende eval()-metoden for å evaluere sammenlikningen på v. 
+  @Override //Metoden oppretter en RuntimeValue v, så ser den på hvilken comparison token vi har, og velger den passende eval()-metoden for å evaluere sammenlikningen på v.
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     RuntimeValue v = termList.get(0).eval(curScope);
     RuntimeValue nextv;
     AspCompOpr opr;
 
     for (int i = 0; i < coList.size(); i++) {
-      v = termList.get(i).eval(curScope);
+      if (i != 0) v = termList.get(i).eval(curScope);
       nextv = termList.get(i+1).eval(curScope);
       opr = coList.get(i);
       switch (opr.opr) {

@@ -58,11 +58,9 @@ class AspPrimary extends AspSyntax {
         }
 
         v = curScope.find(v.showInfo(), this);
-        System.out.println("PRIMARY TRACE " + v.showInfo());
         trace("Call function " + v.showInfo() + " with params [" + logStr + "]");
         v = v.evalFuncCall(argsList, this);
         if (v instanceof RuntimeNoneValue) trace("None");
-
 
       } else {
         v = v.evalSubscription(aps, this);

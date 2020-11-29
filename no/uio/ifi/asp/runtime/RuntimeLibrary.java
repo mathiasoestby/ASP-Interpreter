@@ -35,7 +35,7 @@ public class RuntimeLibrary extends RuntimeScope {
 
           RuntimeValue.runtimeError("Function call <exit>: Expected Integer," +
                                     " but found " +
-                                     actualParams.get(0).getClass() + ".", where);
+                                     actualParams.get(0).typeName() + ".", where);
           return null;
         }
       });
