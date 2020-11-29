@@ -34,35 +34,37 @@ class AspAssignment extends AspSmallStmt{
     return aa;
   }
 
-   @Override
-   public void prettyPrint(){
+  @Override
+  public void prettyPrint(){
 
-     this.name.prettyPrint();
+    this.name.prettyPrint();
 
-     for (AspSubscription as : this.asList) {
-       as.prettyPrint();
-     }
+    for (AspSubscription as : this.asList) {
+      as.prettyPrint();
+    }
 
-     prettyWrite(" = ");
-     this.expr.prettyPrint();
+    prettyWrite(" = ");
+    this.expr.prettyPrint();
 
-   }
+  }
 
-   @Override
-   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-     RuntimeValue exprEval = this.expr.eval(curScope);
+  @Override
+  public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
+    RuntimeValue exprEval = this.expr.eval(curScope);
 
-     if (asList.isEmpty()) {
-       curScope.assign(this.name.navn, exprEval);
-       trace(this.name.navn + " = " + exprEval.toString());
+    if (asList.isEmpty()) {
+      curScope.assign(this.name.navn, exprEval);
+      if (exprEval instanceof RuntimeStringValue)
+        trace(this.name.navn + " = '" + exprEval.toString() + "'");
+      else trace(this.name.navn + " = " + exprEval.toString());
 
-     } else {
-       RuntimeValue list  = curScope.find(this.name.eval(curScope).getStringValue("assignment", this), this);
-       for (int i = 0; i < this.asList.size() - 1; ) {
-         list = list.evalSubscription(this.asList.get(i).eval(curScope), this);
-       }
-       list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), exprEval, this);
-     }
-     return null;
-   }
+    } else {
+      RuntimeValue list  = this.name.eval(curScope);
+      for (int i = 0; i < this.asList.size() - 1; ) {
+        list = list.evalSubscription(this.asList.get(i).eval(curScope), this);
+      }
+      list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), exprEval, this);
+    }
+    return null;
+  }
 }

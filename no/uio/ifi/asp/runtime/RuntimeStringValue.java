@@ -18,7 +18,7 @@ public class RuntimeStringValue extends RuntimeValue {
 
   @Override
   protected String showInfo(ArrayList<RuntimeValue> inUse, boolean toPrint) {
-    return "'" + this.stringValue + "'";
+    return this.stringValue;
   }
 
   @Override
