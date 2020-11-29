@@ -54,6 +54,8 @@ public class AspForStmt extends AspCompoundStmt {
     if (ex instanceof RuntimeList){
       for (int i = 0; i < ((RuntimeList) ex).listValue.size(); i++) {
         curScope.assign(this.name.navn, ((RuntimeList) ex).listValue.get(i));
+        trace("for #" + (i+1) + ": " + this.name.navn + " = " +
+              ((RuntimeList) ex).listValue.get(i));
         this.suite.eval(curScope);
       }
       return null;

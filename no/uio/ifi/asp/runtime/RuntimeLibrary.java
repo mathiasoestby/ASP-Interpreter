@@ -70,7 +70,7 @@ public class RuntimeLibrary extends RuntimeScope {
               }
 
           RuntimeValue.runtimeError("Function call <float>: Argument type-error, " +
-                                     actualParams.get(0).getClass().getName() + ".", where);
+                                     actualParams.get(0).typeName() + ".", where);
           return null;
         }
       });
@@ -90,7 +90,7 @@ public class RuntimeLibrary extends RuntimeScope {
                   }
 
                   RuntimeValue.runtimeError("Function call <input>: Expected" +
-"String argument, but found " + actualParams.get(0).getClass().getName(), where);
+"String argument, but found " + actualParams.get(0).typeName(), where);
 
                   return null;
                 }
@@ -127,7 +127,7 @@ public class RuntimeLibrary extends RuntimeScope {
               }
 
           RuntimeValue.runtimeError("Function call <int>: Argument type-error, " +
-                                     actualParams.get(0).getClass().getName() + ".", where);
+                                     actualParams.get(0).typeName() + ".", where);
           return null;
         }
       });
@@ -143,7 +143,7 @@ public class RuntimeLibrary extends RuntimeScope {
                     build += val.showInfo();
                   }
                   System.out.println(build);
-                  return null;
+                  return new RuntimeNoneValue();
                 }
               });
 

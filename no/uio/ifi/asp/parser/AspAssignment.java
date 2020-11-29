@@ -53,8 +53,8 @@ class AspAssignment extends AspSmallStmt{
      RuntimeValue exprEval = this.expr.eval(curScope);
 
      if (asList.isEmpty()) {
-
        curScope.assign(this.name.navn, exprEval);
+       trace(this.name.navn + " = " + exprEval.toString());
 
      } else {
        RuntimeValue list  = curScope.find(this.name.eval(curScope).getStringValue("assignment", this), this);
@@ -63,6 +63,6 @@ class AspAssignment extends AspSmallStmt{
        }
        list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), exprEval, this);
      }
-     return new RuntimeNoneValue();
+     return null;
    }
 }

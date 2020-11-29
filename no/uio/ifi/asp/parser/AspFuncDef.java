@@ -46,7 +46,7 @@ public class AspFuncDef extends AspCompoundStmt{
 
   @Override
   public void prettyPrint(){
-    prettyWrite("def");
+    prettyWrite("def ");
     this.defName.prettyPrint();
     prettyWrite("(");
 
@@ -64,6 +64,7 @@ public class AspFuncDef extends AspCompoundStmt{
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
     curScope.assign(defName.navn, new RuntimeFunc(this, curScope));
+    trace("def "+ defName.navn);
     return null;
   }
 }

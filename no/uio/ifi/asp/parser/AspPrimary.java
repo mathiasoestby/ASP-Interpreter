@@ -48,15 +48,21 @@ class AspPrimary extends AspSyntax {
 
       if (this.apsList.get(i) instanceof AspArguments) {
         ArrayList<RuntimeValue> argsList = new ArrayList<>();
+        String logStr = "";
 
         for (AspSyntax as : ((AspArguments) this.apsList.get(i)).exprList) {
-          argsList.add(as.eval(curScope));
+          if (! logStr.equals("")) logStr += ", ";
+          RuntimeValue arg = as.eval(curScope);
+          argsList.add(arg);
+          logStr += arg.toString();
         }
-        
-        // ArrayList<AspSyntax> list = ((AspArguments) this.apsList.get(i)).exprList;
-        // ArrayList<RuntimeValue> argsList = ;
+
         v = curScope.find(v.showInfo(), this);
+        System.out.println("PRIMARY TRACE " + v.showInfo());
+        trace("Call function " + v.showInfo() + " with params [" + logStr + "]");
         v = v.evalFuncCall(argsList, this);
+        if (v instanceof RuntimeNoneValue) trace("None");
+
 
       } else {
         v = v.evalSubscription(aps, this);
