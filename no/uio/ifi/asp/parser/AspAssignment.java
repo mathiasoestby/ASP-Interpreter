@@ -60,10 +60,28 @@ class AspAssignment extends AspSmallStmt{
 
     } else {
       RuntimeValue list  = this.name.eval(curScope);
+      String logStr = this.name.navn;
       for (int i = 0; i < this.asList.size() - 1; ) {
+        RuntimeValue subsc = this.asList.get(i).eval(curScope);
+
+        if (exprEval instanceof RuntimeStringValue)
+          logStr += "['" + subsc.toString() + "']";
+        else logStr += "[" + subsc.toString() + "]";
+
         list = list.evalSubscription(this.asList.get(i).eval(curScope), this);
       }
-      list.evalAssignElem(this.asList.get(this.asList.size() - 1).eval(curScope), exprEval, this);
+      RuntimeValue lastsub = this.asList.get(this.asList.size() - 1).eval(curScope);
+
+      if (lastsub instanceof RuntimeStringValue)
+        logStr += "['" + lastsub.toString() + "'] = ";
+      else logStr += "[" + lastsub.toString() + "] = ";
+
+      if (exprEval instanceof RuntimeStringValue)
+        logStr += "'" + exprEval.toString() + "'";
+      else logStr += exprEval.toString();
+      trace(logStr);
+
+      list.evalAssignElem(lastsub, exprEval, this);
     }
     return null;
   }
